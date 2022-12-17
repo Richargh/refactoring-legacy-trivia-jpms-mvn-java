@@ -56,10 +56,10 @@ public class Game {
             selectNextPlayer();
             return true;
         } else {
-            purses.winCoin(currentPlayer, this);
+            purses.winCoin(currentPlayer);
             selectNextPlayer();
 
-            return purses.shouldGameContinue(playerIndex, this);
+            return purses.shouldGameContinue(playerIndex);
         }
     }
 
@@ -106,7 +106,7 @@ public class Game {
         public Purses() {
         }
 
-        public void winCoin(Player player, Game game) {
+        public void winCoin(Player player) {
             System.out.println("Answer was correct!!!!");
             purses[player.index()]++;
             System.out.println(player.name()
@@ -115,7 +115,7 @@ public class Game {
                                + " Gold Coins.");
         }
 
-        public boolean shouldGameContinue(int playerIndex, Game game) {
+        public boolean shouldGameContinue(int playerIndex) {
             return purses[playerIndex] != 6;
         }
 
