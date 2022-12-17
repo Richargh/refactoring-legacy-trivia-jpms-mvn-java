@@ -158,39 +158,31 @@ public class Game {
          */
         private final boolean[] inPenaltyBox = new boolean[6];
 
-        public boolean[] getInPenaltyBox() {
-            return inPenaltyBox;
-        }
-
         private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
-
-        public boolean[] getIsGettingOutOfPenaltyBox() {
-            return isGettingOutOfPenaltyBox;
-        }
 
         public PenaltyBox() {
         }
 
         private boolean isNotAllowedToPlay(int playerIndex, Game game) {
-            return getInPenaltyBox()[playerIndex] && !getIsGettingOutOfPenaltyBox()[playerIndex];
+            return inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex];
         }
 
         private boolean isInPenaltyBox(Game game) {
-            return getInPenaltyBox()[game.currentPlayerIndex];
+            return inPenaltyBox[game.currentPlayerIndex];
         }
 
         private void sendToPenaltyBox(int playerIndex, Game game) {
             System.out.println(game.players.get(playerIndex) + " was sent to the penalty box");
-            getInPenaltyBox()[playerIndex] = true;
+            inPenaltyBox[playerIndex] = true;
         }
 
         private void fetchFromPenaltyBox(int playerIndex, Game game) {
-            getIsGettingOutOfPenaltyBox()[playerIndex] = true;
+            isGettingOutOfPenaltyBox[playerIndex] = true;
             System.out.println(game.players.get(playerIndex) + " is getting out of the penalty box");
         }
 
         private void keepInPenaltyBox(int playerIndex, Game game) {
-            getIsGettingOutOfPenaltyBox()[playerIndex] = false;
+            isGettingOutOfPenaltyBox[playerIndex] = false;
             System.out.println(game.players.get(playerIndex) + " is not getting out of the penalty box");
         }
     }
