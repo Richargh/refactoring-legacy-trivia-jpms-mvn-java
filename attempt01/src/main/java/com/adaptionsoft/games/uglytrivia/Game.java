@@ -67,7 +67,6 @@ public class Game {
 
     private void play(int roll) {
         int playerPlace = movePlayer(roll, currentPlayerIndex);
-        System.out.println("The category is " + currentCategory(playerPlace));
         askQuestion(playerPlace);
     }
 
@@ -136,6 +135,8 @@ public class Game {
     }
 
     private void askQuestion(int place) {
+        System.out.println("The category is " + currentCategory(place));
+
         if (currentCategory(place) == "Pop")
             System.out.println(popQuestions.remove(0));
         if (currentCategory(place) == "Science")
