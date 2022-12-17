@@ -7,29 +7,14 @@ import java.util.List;
 public class Game {
 
     private final List<PlayerName> players = new ArrayList<>();
-    private final int[] places = new int[6];
-    private final int[] purses = new int[6];
-    private final boolean[] inPenaltyBox  = new boolean[6];
 
-    private final List<Question> popQuestions = new LinkedList<>();
-    private final List<Question> scienceQuestions = new LinkedList<>();
-    private final List<Question> sportsQuestions = new LinkedList<>();
-    private final List<Question> rockQuestions = new LinkedList<>();
+    private final boolean[] inPenaltyBox  = new boolean[6];
 
     private int currentPlayerIndex = 0;
     private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
 
     public  Game(){
         initQuestionCatalogue();
-    }
-
-    private void initQuestionCatalogue() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.add(new Question("Pop Question " + i));
-            scienceQuestions.add(new Question(("Science Question " + i)));
-            sportsQuestions.add(new Question(("Sports Question " + i)));
-            rockQuestions.add(new Question("Rock Question " + i));
-        }
     }
 
     public void add(String playerName) {
@@ -91,6 +76,31 @@ public class Game {
         askQuestion(playerPlace);
     }
 
+    private void selectNextPlayer() {
+        currentPlayerIndex++;
+        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+    }
+
+    /**
+     * Category
+     */
+    private Category currentCategory(int place) {
+        if (place == 0) return Category.Pop;
+        if (place == 4) return Category.Pop;
+        if (place == 8) return Category.Pop;
+        if (place == 1) return Category.Science;
+        if (place == 5) return Category.Science;
+        if (place == 9) return Category.Science;
+        if (place == 2) return Category.Sports;
+        if (place == 6) return Category.Sports;
+        if (place == 10)return Category.Sports;
+        return Category.Rock;
+    }
+
+    /**
+     * Places
+     */
+    private final int[] places = new int[6];
     private int movePlayer(int roll, int playerIndex) {
         places[playerIndex] = places[playerIndex] + roll;
         if (places[playerIndex] > 11) places[playerIndex] = places[playerIndex] - 12;
@@ -101,20 +111,9 @@ public class Game {
         return places[playerIndex];
     }
 
-    private void winCoin(int playerIndex) {
-        System.out.println("Answer was correct!!!!");
-        purses[playerIndex]++;
-        System.out.println(players.get(playerIndex)
-                           + " now has "
-                           + purses[playerIndex]
-                           + " Gold Coins.");
-    }
-
-    private void selectNextPlayer() {
-        currentPlayerIndex++;
-        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-    }
-
+    /**
+     * Penalty Box
+     */
     private void sendToPenaltyBox(int playerIndex) {
         System.out.println(players.get(playerIndex) + " was sent to the penalty box");
         inPenaltyBox[playerIndex] = true;
@@ -130,17 +129,38 @@ public class Game {
         System.out.println(players.get(playerIndex) + " is not getting out of the penalty box");
     }
 
-    private Category currentCategory(int place) {
-        if (place == 0) return Category.Pop;
-        if (place == 4) return Category.Pop;
-        if (place == 8) return Category.Pop;
-        if (place == 1) return Category.Science;
-        if (place == 5) return Category.Science;
-        if (place == 9) return Category.Science;
-        if (place == 2) return Category.Sports;
-        if (place == 6) return Category.Sports;
-        if (place == 10)return Category.Sports;
-        return Category.Rock;
+    /**
+     * Purses
+     */
+    private final int[] purses = new int[6];
+    private void winCoin(int playerIndex) {
+        System.out.println("Answer was correct!!!!");
+        purses[playerIndex]++;
+        System.out.println(players.get(playerIndex)
+                           + " now has "
+                           + purses[playerIndex]
+                           + " Gold Coins.");
+    }
+
+    private boolean shouldGameContinue(int playerIndex) {
+        return purses[playerIndex] != 6;
+    }
+
+    /**
+     * Questions
+     */
+    private final List<Question> popQuestions = new LinkedList<>();
+    private final List<Question> scienceQuestions = new LinkedList<>();
+    private final List<Question> sportsQuestions = new LinkedList<>();
+    private final List<Question> rockQuestions = new LinkedList<>();
+
+    private void initQuestionCatalogue() {
+        for (int i = 0; i < 50; i++) {
+            popQuestions.add(new Question("Pop Question " + i));
+            scienceQuestions.add(new Question(("Science Question " + i)));
+            sportsQuestions.add(new Question(("Sports Question " + i)));
+            rockQuestions.add(new Question("Rock Question " + i));
+        }
     }
 
     private void askQuestion(int place) {
@@ -156,9 +176,9 @@ public class Game {
             System.out.println(rockQuestions.remove(0));
     }
 
-    private boolean shouldGameContinue(int playerIndex) {
-        return purses[playerIndex] != 6;
-    }
+    /**
+     * Extracted Types
+     */
 
     private enum Category {
         Pop,
