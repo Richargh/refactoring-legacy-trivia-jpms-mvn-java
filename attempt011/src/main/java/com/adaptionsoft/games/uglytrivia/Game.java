@@ -12,6 +12,8 @@ public class Game {
 
     private final PenaltyBox penaltyBox = new PenaltyBox();
 
+    private final Board board = new Board();
+
     private Player currentPlayer = null;
 
     public  Game(){
@@ -19,7 +21,7 @@ public class Game {
 
     public void add(String playerName) {
         players.add(new Player(players.size(), new PlayerName(playerName)));
-        places[players.size()] = 0;
+        board.getPlaces()[players.size()] = 0;
         purses[players.size()] = 0;
         if(currentPlayer == null)
             currentPlayer = players.get(0);
@@ -72,44 +74,14 @@ public class Game {
     }
 
     private void play(int roll) {
-        int playerPlace = movePlayer(roll, currentPlayer);
-        catalogue.askQuestion(this.currentCategory(playerPlace));
+        int playerPlace = board.movePlayer(roll, currentPlayer, this);
+        catalogue.askQuestion(this.board.currentCategory(playerPlace));
     }
 
     private void selectNextPlayer() {
         var nextPlayerIndex = players.indexOf(currentPlayer) + 1;
         if (nextPlayerIndex == players.size()) nextPlayerIndex = 0;
         currentPlayer = players.get(nextPlayerIndex);
-    }
-
-    /**
-     * Category
-     */
-    private Category currentCategory(int place) {
-        if (place == 0) return Category.Pop;
-        if (place == 4) return Category.Pop;
-        if (place == 8) return Category.Pop;
-        if (place == 1) return Category.Science;
-        if (place == 5) return Category.Science;
-        if (place == 9) return Category.Science;
-        if (place == 2) return Category.Sports;
-        if (place == 6) return Category.Sports;
-        if (place == 10)return Category.Sports;
-        return Category.Rock;
-    }
-
-    /**
-     * Places
-     */
-    private final int[] places = new int[6];
-    private int movePlayer(int roll, Player player) {
-        places[player.index()] = places[player.index()] + roll;
-        if (places[player.index()] > 11) places[player.index()] = places[player.index()] - 12;
-
-        System.out.println(player.name()
-                           + "'s new location is "
-                           + places[player.index()]);
-        return places[player.index()];
     }
 
     /**
@@ -153,6 +125,49 @@ public class Game {
         @Override
         public String toString() {
             return rawValue;
+        }
+    }
+
+    public static class Board {
+
+        /**
+         * Places
+         */
+        private final int[] places = new int[6];
+
+        public int[] getPlaces() {
+            return places;
+        }
+
+        public Board() {
+        }
+
+        public int movePlayer(int roll, Player player, Game game) {
+            getPlaces()[player.index()] = getPlaces()[player.index()] + roll;
+            if (getPlaces()[player.index()] > 11) getPlaces()[player.index()] = getPlaces()[player.index()] - 12;
+
+            System.out.println(player.name()
+                               + "'s new location is "
+                               + getPlaces()[player.index()]);
+            return getPlaces()[player.index()];
+        }
+
+        /**
+         * Category
+         *
+         * @param place
+         */
+        public Category currentCategory(int place) {
+            if (place == 0) return Category.Pop;
+            if (place == 4) return Category.Pop;
+            if (place == 8) return Category.Pop;
+            if (place == 1) return Category.Science;
+            if (place == 5) return Category.Science;
+            if (place == 9) return Category.Science;
+            if (place == 2) return Category.Sports;
+            if (place == 6) return Category.Sports;
+            if (place == 10)return Category.Sports;
+            return Category.Rock;
         }
     }
 
