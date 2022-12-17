@@ -83,11 +83,9 @@ public class Game {
             return true;
         } else {
             winCoin(playerIndex);
-
-            boolean winner = didPlayerWin(playerIndex);
             selectNextPlayer();
 
-            return winner;
+            return didPlayerWin(playerIndex);
         }
     }
 
