@@ -76,13 +76,9 @@ public class Game {
     }
 
     public boolean playerAnsweredCorrectly() {
-        if (inPenaltyBox[currentPlayerIndex]){
-            if (isGettingOutOfPenaltyBox) {
-                return win();
-            } else {
-                selectNextPlayer();
-                return true;
-            }
+        if (inPenaltyBox[currentPlayerIndex] && !isGettingOutOfPenaltyBox){
+            selectNextPlayer();
+            return true;
         } else {
             return win();
         }
