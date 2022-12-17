@@ -60,6 +60,28 @@ public class Game {
         }
     }
 
+    public boolean playerAnsweredCorrectly() {
+        int playerIndex = this.currentPlayerIndex;
+
+        if (inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex]){
+            selectNextPlayer();
+            return true;
+        } else {
+            winCoin(playerIndex);
+            selectNextPlayer();
+
+            return didPlayerWin(playerIndex);
+        }
+    }
+
+    public boolean playerAnsweredWrong(){
+        System.out.println("Question was incorrectly answered");
+        sendToPenaltyBox(currentPlayerIndex);
+
+        selectNextPlayer();
+        return true;
+    }
+
     private static boolean isEven(int roll) {
         return roll % 2 == 0;
     }
@@ -79,20 +101,6 @@ public class Game {
         return places[playerIndex];
     }
 
-    public boolean playerAnsweredCorrectly() {
-        int playerIndex = this.currentPlayerIndex;
-
-        if (inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex]){
-            selectNextPlayer();
-            return true;
-        } else {
-            winCoin(playerIndex);
-            selectNextPlayer();
-
-            return didPlayerWin(playerIndex);
-        }
-    }
-
     private void winCoin(int playerIndex) {
         System.out.println("Answer was correct!!!!");
         purses[playerIndex]++;
@@ -100,14 +108,6 @@ public class Game {
                            + " now has "
                            + purses[playerIndex]
                            + " Gold Coins.");
-    }
-
-    public boolean playerAnsweredWrong(){
-        System.out.println("Question was incorrectly answered");
-        sendToPenaltyBox(currentPlayerIndex);
-
-        selectNextPlayer();
-        return true;
     }
 
     private void selectNextPlayer() {
