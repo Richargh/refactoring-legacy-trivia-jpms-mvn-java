@@ -74,7 +74,7 @@ public class Game {
     }
 
     private void play(int roll) {
-        int playerPlace = board.movePlayer(roll, currentPlayer, this);
+        int playerPlace = board.movePlayer(roll, currentPlayer);
         catalogue.askQuestion(this.board.currentCategory(playerPlace));
     }
 
@@ -142,7 +142,7 @@ public class Game {
             places[playerIndex] = 0;
         }
 
-        public int movePlayer(int roll, Player player, Game game) {
+        public int movePlayer(int roll, Player player) {
             places[player.index()] = places[player.index()] + roll;
             if (places[player.index()] > 11) places[player.index()] = places[player.index()] - 12;
 
