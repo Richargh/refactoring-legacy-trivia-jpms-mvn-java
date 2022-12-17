@@ -143,13 +143,14 @@ public class Game {
         }
 
         public int movePlayer(int roll, Player player) {
-            places[player.index()] = places[player.index()] + roll;
-            if (places[player.index()] > 11) places[player.index()] = places[player.index()] - 12;
+            int index = player.index();
+            places[index] = places[index] + roll;
+            if (places[index] > 11) places[index] = places[index] - 12;
 
             System.out.println(player.name()
                                + "'s new location is "
-                               + places[player.index()]);
-            return places[player.index()];
+                               + places[index]);
+            return places[index];
         }
 
         /**
