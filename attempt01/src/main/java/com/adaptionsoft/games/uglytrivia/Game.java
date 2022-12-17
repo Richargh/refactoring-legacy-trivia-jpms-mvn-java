@@ -67,8 +67,9 @@ public class Game {
 
     private void play(int roll) {
         movePlayer(roll, currentPlayerIndex);
-        System.out.println("The category is " + currentCategory(places[currentPlayerIndex]));
-        askQuestion(places[currentPlayerIndex]);
+        int playerPlace = places[currentPlayerIndex];
+        System.out.println("The category is " + currentCategory(playerPlace));
+        askQuestion(playerPlace);
     }
 
     private void movePlayer(int roll, int playerIndex) {
