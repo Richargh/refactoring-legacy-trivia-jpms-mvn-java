@@ -28,12 +28,8 @@ public class Game {
             popQuestions.add(new Question("Pop Question " + i));
             scienceQuestions.add(new Question(("Science Question " + i)));
             sportsQuestions.add(new Question(("Sports Question " + i)));
-            rockQuestions.add(createRockQuestion(i));
+            rockQuestions.add(new Question("Rock Question " + i));
         }
-    }
-
-    private Question createRockQuestion(int index){
-        return new Question("Rock Question " + index);
     }
 
     public boolean add(String playerName) {
