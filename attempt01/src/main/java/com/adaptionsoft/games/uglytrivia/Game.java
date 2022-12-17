@@ -94,7 +94,7 @@ public class Game {
                 return true;
             }
         } else {
-            System.out.println("Answer was corrent!!!!");
+            System.out.println("Answer was correct!!!!");
             purses[currentPlayerIndex]++;
             System.out.println(players.get(currentPlayerIndex)
                                + " now has "
