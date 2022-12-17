@@ -78,24 +78,23 @@ public class Game {
     public boolean playerAnsweredCorrectly() {
         if (inPenaltyBox[currentPlayerIndex]){
             if (isGettingOutOfPenaltyBox) {
-                winCoin(currentPlayerIndex);
-
-                boolean winner = didPlayerWin();
-                selectNextPlayer();
-
-                return winner;
+                return win();
             } else {
                 selectNextPlayer();
                 return true;
             }
         } else {
-            winCoin(currentPlayerIndex);
-
-            boolean winner = didPlayerWin();
-            selectNextPlayer();
-
-            return winner;
+            return win();
         }
+    }
+
+    private boolean win() {
+        winCoin(currentPlayerIndex);
+
+        boolean winner = didPlayerWin();
+        selectNextPlayer();
+
+        return winner;
     }
 
     private void winCoin(int playerIndex) {
