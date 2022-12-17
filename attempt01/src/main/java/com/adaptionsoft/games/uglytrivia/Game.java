@@ -76,6 +76,7 @@ public class Game {
     }
 
     public boolean playerAnsweredCorrectly() {
+        int currentPlayerIndex = this.currentPlayerIndex;
         if (inPenaltyBox[currentPlayerIndex] && !isGettingOutOfPenaltyBox){
             selectNextPlayer();
             return true;
