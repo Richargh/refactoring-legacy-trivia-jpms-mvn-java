@@ -8,10 +8,12 @@ public class Game {
 
     private final List<PlayerName> players = new ArrayList<>();
 
+    private final Catalogue catalogue = new Catalogue();
+
     private int currentPlayerIndex = 0;
 
     public  Game(){
-        initQuestionCatalogue();
+        catalogue.initQuestionCatalogue();
     }
 
     public void add(String playerName) {
@@ -70,7 +72,7 @@ public class Game {
 
     private void play(int roll) {
         int playerPlace = movePlayer(roll, currentPlayerIndex);
-        askQuestion(playerPlace);
+        catalogue.askQuestion(playerPlace, this);
     }
 
     private void selectNextPlayer() {
@@ -155,39 +157,8 @@ public class Game {
     }
 
     /**
-     * Questions
-     */
-    private final List<Question> popQuestions = new LinkedList<>();
-    private final List<Question> scienceQuestions = new LinkedList<>();
-    private final List<Question> sportsQuestions = new LinkedList<>();
-    private final List<Question> rockQuestions = new LinkedList<>();
-
-    private void initQuestionCatalogue() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.add(new Question("Pop Question " + i));
-            scienceQuestions.add(new Question(("Science Question " + i)));
-            sportsQuestions.add(new Question(("Sports Question " + i)));
-            rockQuestions.add(new Question("Rock Question " + i));
-        }
-    }
-
-    private void askQuestion(int place) {
-        System.out.println("The category is " + currentCategory(place));
-
-        if (currentCategory(place) == Category.Pop)
-            System.out.println(popQuestions.remove(0));
-        if (currentCategory(place) == Category.Science)
-            System.out.println(scienceQuestions.remove(0));
-        if (currentCategory(place) == Category.Sports)
-            System.out.println(sportsQuestions.remove(0));
-        if (currentCategory(place) == Category.Rock)
-            System.out.println(rockQuestions.remove(0));
-    }
-
-    /**
      * Extracted Types
      */
-
     private enum Category {
         Pop,
         Science,
@@ -206,6 +177,46 @@ public class Game {
         @Override
         public String toString() {
             return rawValue;
+        }
+    }
+
+    public static class Catalogue {
+
+        private final List<Question> popQuestions = new LinkedList<Question>();
+
+        private final List<Question> scienceQuestions = new LinkedList<Question>();
+
+        private final List<Question> sportsQuestions = new LinkedList<Question>();
+
+        private final List<Question> rockQuestions = new LinkedList<Question>();
+
+        public Catalogue() {
+        }
+
+        private void initQuestionCatalogue() {
+            for (int i = 0; i < 50; i++) {
+                popQuestions
+                        .add(new Question("Pop Question " + i));
+                scienceQuestions
+                        .add(new Question(("Science Question " + i)));
+                sportsQuestions
+                        .add(new Question(("Sports Question " + i)));
+                rockQuestions
+                        .add(new Question("Rock Question " + i));
+            }
+        }
+
+        private void askQuestion(int place, Game game) {
+            System.out.println("The category is " + game.currentCategory(place));
+
+            if (game.currentCategory(place) == Category.Pop) System.out.println(popQuestions
+                                       .remove(0));
+            if (game.currentCategory(place) == Category.Science) System.out.println(scienceQuestions
+                                       .remove(0));
+            if (game.currentCategory(place) == Category.Sports) System.out.println(sportsQuestions
+                                       .remove(0));
+            if (game.currentCategory(place) == Category.Rock) System.out.println(rockQuestions
+                                       .remove(0));
         }
     }
 }
