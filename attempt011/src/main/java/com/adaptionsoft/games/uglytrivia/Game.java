@@ -103,28 +103,24 @@ public class Game {
          */
         final int[] purses = new int[6];
 
-        public int[] getPurses() {
-            return purses;
-        }
-
         public Purses() {
         }
 
         public void winCoin(Player player, Game game) {
             System.out.println("Answer was correct!!!!");
-            getPurses()[player.index()]++;
+            purses[player.index()]++;
             System.out.println(player.name()
                                + " now has "
-                               + getPurses()[player.index()]
+                               + purses[player.index()]
                                + " Gold Coins.");
         }
 
         public boolean shouldGameContinue(int playerIndex, Game game) {
-            return getPurses()[playerIndex] != 6;
+            return purses[playerIndex] != 6;
         }
 
         private void addPlayerPurse(int playerIndex) {
-            getPurses()[playerIndex] = 0;
+            purses[playerIndex] = 0;
         }
     }
 
