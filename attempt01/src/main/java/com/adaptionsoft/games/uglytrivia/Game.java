@@ -11,25 +11,25 @@ public class Game {
     private final int[] purses = new int[6];
     private final boolean[] inPenaltyBox  = new boolean[6];
 
-    private final LinkedList popQuestions = new LinkedList();
-    private final LinkedList scienceQuestions = new LinkedList();
-    private final LinkedList sportsQuestions = new LinkedList();
-    private final LinkedList rockQuestions = new LinkedList();
+    private final LinkedList<Question> popQuestions = new LinkedList<>();
+    private final LinkedList<Question> scienceQuestions = new LinkedList<>();
+    private final LinkedList<Question> sportsQuestions = new LinkedList<>();
+    private final LinkedList<Question> rockQuestions = new LinkedList<>();
 
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
         for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
+            popQuestions.addLast(new Question("Pop Question " + i));
+            scienceQuestions.addLast(new Question(("Science Question " + i)));
+            sportsQuestions.addLast(new Question(("Sports Question " + i)));
             rockQuestions.addLast(createRockQuestion(i));
         }
     }
 
-    public String createRockQuestion(int index){
-        return "Rock Question " + index;
+    public Question createRockQuestion(int index){
+        return new Question("Rock Question " + index);
     }
 
     public boolean isPlayable() {
@@ -168,6 +168,14 @@ public class Game {
     }
 
     private record PlayerName(String rawValue){
+
+        @Override
+        public String toString() {
+            return rawValue;
+        }
+    }
+
+    private record Question(String rawValue){
 
         @Override
         public String toString() {
