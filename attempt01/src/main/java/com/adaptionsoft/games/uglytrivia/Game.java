@@ -11,20 +11,20 @@ public class Game {
     private final int[] purses = new int[6];
     private final boolean[] inPenaltyBox  = new boolean[6];
 
-    private final LinkedList<Question> popQuestions = new LinkedList<>();
-    private final LinkedList<Question> scienceQuestions = new LinkedList<>();
-    private final LinkedList<Question> sportsQuestions = new LinkedList<>();
-    private final LinkedList<Question> rockQuestions = new LinkedList<>();
+    private final List<Question> popQuestions = new LinkedList<>();
+    private final List<Question> scienceQuestions = new LinkedList<>();
+    private final List<Question> sportsQuestions = new LinkedList<>();
+    private final List<Question> rockQuestions = new LinkedList<>();
 
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
         for (int i = 0; i < 50; i++) {
-            popQuestions.addLast(new Question("Pop Question " + i));
-            scienceQuestions.addLast(new Question(("Science Question " + i)));
-            sportsQuestions.addLast(new Question(("Sports Question " + i)));
-            rockQuestions.addLast(createRockQuestion(i));
+            popQuestions.add(new Question("Pop Question " + i));
+            scienceQuestions.add(new Question(("Science Question " + i)));
+            sportsQuestions.add(new Question(("Sports Question " + i)));
+            rockQuestions.add(createRockQuestion(i));
         }
     }
 
@@ -89,13 +89,13 @@ public class Game {
 
     private void askQuestion() {
         if (currentCategory() == "Pop")
-            System.out.println(popQuestions.removeFirst());
+            System.out.println(popQuestions.remove(0));
         if (currentCategory() == "Science")
-            System.out.println(scienceQuestions.removeFirst());
+            System.out.println(scienceQuestions.remove(0));
         if (currentCategory() == "Sports")
-            System.out.println(sportsQuestions.removeFirst());
+            System.out.println(sportsQuestions.remove(0));
         if (currentCategory() == "Rock")
-            System.out.println(rockQuestions.removeFirst());
+            System.out.println(rockQuestions.remove(0));
     }
 
 
