@@ -80,17 +80,13 @@ public class Game {
             selectNextPlayer();
             return true;
         } else {
-            return win();
+            winCoin(currentPlayerIndex);
+
+            boolean winner = didPlayerWin();
+            selectNextPlayer();
+
+            return winner;
         }
-    }
-
-    private boolean win() {
-        winCoin(currentPlayerIndex);
-
-        boolean winner = didPlayerWin();
-        selectNextPlayer();
-
-        return winner;
     }
 
     private void winCoin(int playerIndex) {
