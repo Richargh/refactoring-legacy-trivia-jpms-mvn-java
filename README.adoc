@@ -5,10 +5,13 @@ Tests created via link:https://approvaltests.com/[Approval Test Library].
 
 If you are working in a legacy code scenario you should definitely check out link:https://www.youtube.com/watch?v=zyM2Ep28ED8[Introducing the Gilded Rose kata and writing test cases using Approval Tests by Emily Bache].
 
+If you are looking for a simpler example to get started with testing legacy code, take a look at link:https://github.com/Richargh/legacy-code-test-starter-mvn-java[Legacy Code Starter].
+
 == Attempts
 
 * link:original/[Original Trivia] with added approval tests
-* link:attempt01/[Attempt 01], a refactoring without constraints
+* link:attempt01/[Attempt 01], a refactoring trying to use mostly extract method
+* link:attempt011/[Attempt 01.1], a refactoring building on top of Attempt 01, now trying to extract everything to classes that was a method before
 
 == Features
 
