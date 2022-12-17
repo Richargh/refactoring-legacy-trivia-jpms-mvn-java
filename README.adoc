@@ -14,6 +14,7 @@ If you are working in a legacy code scenario you should definitely check out lin
 
 * link:.sdkmanrc[Java 17]
 * link:https://approvaltests.com/[Approval Tests]
+* Multiple JPMS Modules, one for each attempt
 
 == Preconditions
 
