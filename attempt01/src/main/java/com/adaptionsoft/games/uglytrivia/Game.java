@@ -34,9 +34,9 @@ public class Game {
 
     public void add(String playerName) {
         players.add(new PlayerName(playerName));
-        places[howManyPlayers()] = 0;
-        purses[howManyPlayers()] = 0;
-        inPenaltyBox[howManyPlayers()] = false;
+        places[players.size()] = 0;
+        purses[players.size()] = 0;
+        inPenaltyBox[players.size()] = false;
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
@@ -145,10 +145,6 @@ public class Game {
             System.out.println(sportsQuestions.remove(0));
         if (currentCategory(place) == "Rock")
             System.out.println(rockQuestions.remove(0));
-    }
-
-    private int howManyPlayers() {
-        return players.size();
     }
 
     private boolean didPlayerWin(int playerIndex) {
