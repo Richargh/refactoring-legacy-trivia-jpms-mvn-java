@@ -16,7 +16,7 @@ public class Game {
     private final List<Question> sportsQuestions = new LinkedList<>();
     private final List<Question> rockQuestions = new LinkedList<>();
 
-    private int currentPlayer = 0;
+    private int currentPlayerIndex = 0;
     private boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
@@ -43,69 +43,69 @@ public class Game {
     }
 
     public void roll(int roll) {
-        System.out.println(players.get(currentPlayer) + " is the current player");
+        System.out.println(players.get(currentPlayerIndex) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (inPenaltyBox[currentPlayer]) {
+        if (inPenaltyBox[currentPlayerIndex]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
-                System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                System.out.println(players.get(currentPlayerIndex) + " is getting out of the penalty box");
+                places[currentPlayerIndex] = places[currentPlayerIndex] + roll;
+                if (places[currentPlayerIndex] > 11) places[currentPlayerIndex] = places[currentPlayerIndex] - 12;
 
-                System.out.println(players.get(currentPlayer)
+                System.out.println(players.get(currentPlayerIndex)
                                    + "'s new location is "
-                                   + places[currentPlayer]);
+                                   + places[currentPlayerIndex]);
                 System.out.println("The category is " + currentCategory());
                 askQuestion();
             } else {
-                System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+                System.out.println(players.get(currentPlayerIndex) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
         } else {
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+            places[currentPlayerIndex] = places[currentPlayerIndex] + roll;
+            if (places[currentPlayerIndex] > 11) places[currentPlayerIndex] = places[currentPlayerIndex] - 12;
 
-            System.out.println(players.get(currentPlayer)
+            System.out.println(players.get(currentPlayerIndex)
                                + "'s new location is "
-                               + places[currentPlayer]);
+                               + places[currentPlayerIndex]);
             System.out.println("The category is " + currentCategory());
             askQuestion();
         }
     }
 
     public boolean playerAnsweredCorrectly() {
-        if (inPenaltyBox[currentPlayer]){
+        if (inPenaltyBox[currentPlayerIndex]){
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
-                purses[currentPlayer]++;
-                System.out.println(players.get(currentPlayer)
+                purses[currentPlayerIndex]++;
+                System.out.println(players.get(currentPlayerIndex)
                                    + " now has "
-                                   + purses[currentPlayer]
+                                   + purses[currentPlayerIndex]
                                    + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
+                currentPlayerIndex++;
+                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
 
                 return winner;
             } else {
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
+                currentPlayerIndex++;
+                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
                 return true;
             }
         } else {
             System.out.println("Answer was corrent!!!!");
-            purses[currentPlayer]++;
-            System.out.println(players.get(currentPlayer)
+            purses[currentPlayerIndex]++;
+            System.out.println(players.get(currentPlayerIndex)
                                + " now has "
-                               + purses[currentPlayer]
+                               + purses[currentPlayerIndex]
                                + " Gold Coins.");
 
             boolean winner = didPlayerWin();
-            currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            currentPlayerIndex++;
+            if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
 
             return winner;
         }
@@ -113,24 +113,24 @@ public class Game {
 
     public boolean playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-        inPenaltyBox[currentPlayer] = true;
+        System.out.println(players.get(currentPlayerIndex) + " was sent to the penalty box");
+        inPenaltyBox[currentPlayerIndex] = true;
 
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        currentPlayerIndex++;
+        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
         return true;
     }
 
     private String currentCategory() {
-        if (places[currentPlayer] == 0) return "Pop";
-        if (places[currentPlayer] == 4) return "Pop";
-        if (places[currentPlayer] == 8) return "Pop";
-        if (places[currentPlayer] == 1) return "Science";
-        if (places[currentPlayer] == 5) return "Science";
-        if (places[currentPlayer] == 9) return "Science";
-        if (places[currentPlayer] == 2) return "Sports";
-        if (places[currentPlayer] == 6) return "Sports";
-        if (places[currentPlayer] == 10) return "Sports";
+        if (places[currentPlayerIndex] == 0) return "Pop";
+        if (places[currentPlayerIndex] == 4) return "Pop";
+        if (places[currentPlayerIndex] == 8) return "Pop";
+        if (places[currentPlayerIndex] == 1) return "Science";
+        if (places[currentPlayerIndex] == 5) return "Science";
+        if (places[currentPlayerIndex] == 9) return "Science";
+        if (places[currentPlayerIndex] == 2) return "Sports";
+        if (places[currentPlayerIndex] == 6) return "Sports";
+        if (places[currentPlayerIndex] == 10) return "Sports";
         return "Rock";
     }
 
@@ -150,7 +150,7 @@ public class Game {
     }
 
     private boolean didPlayerWin() {
-        return !(purses[currentPlayer] == 6);
+        return !(purses[currentPlayerIndex] == 6);
     }
 
     private record PlayerName(String rawValue){
