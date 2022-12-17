@@ -51,7 +51,7 @@ public class Game {
             selectNextPlayer();
             return true;
         } else {
-            winCoin(playerIndex);
+            winCoin(playerIndex, players.get(playerIndex));
             selectNextPlayer();
 
             return shouldGameContinue(playerIndex);
@@ -143,10 +143,10 @@ public class Game {
      * Purses
      */
     private final int[] purses = new int[6];
-    private void winCoin(int playerIndex) {
+    private void winCoin(int playerIndex, PlayerName name) {
         System.out.println("Answer was correct!!!!");
         purses[playerIndex]++;
-        System.out.println(players.get(playerIndex)
+        System.out.println(name
                            + " now has "
                            + purses[playerIndex]
                            + " Gold Coins.");
