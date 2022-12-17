@@ -135,25 +135,21 @@ public class Game {
          */
         private final int[] places = new int[6];
 
-        public int[] getPlaces() {
-            return places;
-        }
-
         public Board() {
         }
 
         private void addPlayerToBoard(int playerIndex) {
-            getPlaces()[playerIndex] = 0;
+            places[playerIndex] = 0;
         }
 
         public int movePlayer(int roll, Player player, Game game) {
-            getPlaces()[player.index()] = getPlaces()[player.index()] + roll;
-            if (getPlaces()[player.index()] > 11) getPlaces()[player.index()] = getPlaces()[player.index()] - 12;
+            places[player.index()] = places[player.index()] + roll;
+            if (places[player.index()] > 11) places[player.index()] = places[player.index()] - 12;
 
             System.out.println(player.name()
                                + "'s new location is "
-                               + getPlaces()[player.index()]);
-            return getPlaces()[player.index()];
+                               + places[player.index()]);
+            return places[player.index()];
         }
 
         /**
