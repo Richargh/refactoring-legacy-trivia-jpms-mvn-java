@@ -145,7 +145,7 @@ public class Game {
     }
 
     private boolean didPlayerWin(int playerIndex) {
-        return !(purses[playerIndex] == 6);
+        return purses[playerIndex] != 6;
     }
 
     private record PlayerName(String rawValue){
