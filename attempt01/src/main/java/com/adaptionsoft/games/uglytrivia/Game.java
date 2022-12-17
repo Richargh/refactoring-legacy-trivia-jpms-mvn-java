@@ -47,14 +47,14 @@ public class Game {
         System.out.println("They have rolled a " + roll);
 
         if (inPenaltyBox[currentPlayerIndex]) {
-            if (roll % 2 != 0) {
+            if (roll % 2 == 0) {
+                isGettingOutOfPenaltyBox = false;
+                System.out.println(players.get(currentPlayerIndex) + " is not getting out of the penalty box");
+            } else {
                 isGettingOutOfPenaltyBox = true;
                 System.out.println(players.get(currentPlayerIndex) + " is getting out of the penalty box");
 
                 play(roll);
-            } else {
-                isGettingOutOfPenaltyBox = false;
-                System.out.println(players.get(currentPlayerIndex) + " is not getting out of the penalty box");
             }
         } else {
             play(roll);
