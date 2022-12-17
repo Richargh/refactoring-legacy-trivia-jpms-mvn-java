@@ -42,10 +42,6 @@ public class Game {
         System.out.println("They are player number " + players.size());
     }
 
-    private int howManyPlayers() {
-        return players.size();
-    }
-
     public void roll(int roll) {
         System.out.println(players.get(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + roll);
@@ -80,31 +76,6 @@ public class Game {
             askQuestion();
         }
 
-    }
-
-    private void askQuestion() {
-        if (currentCategory() == "Pop")
-            System.out.println(popQuestions.remove(0));
-        if (currentCategory() == "Science")
-            System.out.println(scienceQuestions.remove(0));
-        if (currentCategory() == "Sports")
-            System.out.println(sportsQuestions.remove(0));
-        if (currentCategory() == "Rock")
-            System.out.println(rockQuestions.remove(0));
-    }
-
-
-    private String currentCategory() {
-        if (places[currentPlayer] == 0) return "Pop";
-        if (places[currentPlayer] == 4) return "Pop";
-        if (places[currentPlayer] == 8) return "Pop";
-        if (places[currentPlayer] == 1) return "Science";
-        if (places[currentPlayer] == 5) return "Science";
-        if (places[currentPlayer] == 9) return "Science";
-        if (places[currentPlayer] == 2) return "Sports";
-        if (places[currentPlayer] == 6) return "Sports";
-        if (places[currentPlayer] == 10) return "Sports";
-        return "Rock";
     }
 
     public boolean playerAnsweredCorrectly() {
@@ -155,6 +126,34 @@ public class Game {
         currentPlayer++;
         if (currentPlayer == players.size()) currentPlayer = 0;
         return true;
+    }
+
+    private String currentCategory() {
+        if (places[currentPlayer] == 0) return "Pop";
+        if (places[currentPlayer] == 4) return "Pop";
+        if (places[currentPlayer] == 8) return "Pop";
+        if (places[currentPlayer] == 1) return "Science";
+        if (places[currentPlayer] == 5) return "Science";
+        if (places[currentPlayer] == 9) return "Science";
+        if (places[currentPlayer] == 2) return "Sports";
+        if (places[currentPlayer] == 6) return "Sports";
+        if (places[currentPlayer] == 10) return "Sports";
+        return "Rock";
+    }
+
+    private void askQuestion() {
+        if (currentCategory() == "Pop")
+            System.out.println(popQuestions.remove(0));
+        if (currentCategory() == "Science")
+            System.out.println(scienceQuestions.remove(0));
+        if (currentCategory() == "Sports")
+            System.out.println(sportsQuestions.remove(0));
+        if (currentCategory() == "Rock")
+            System.out.println(rockQuestions.remove(0));
+    }
+
+    private int howManyPlayers() {
+        return players.size();
     }
 
 
