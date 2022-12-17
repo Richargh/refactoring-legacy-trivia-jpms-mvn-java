@@ -6,35 +6,37 @@ import java.util.List;
 
 public class Game {
 
-    private final List<PlayerName> players = new ArrayList<>();
+    private final List<Player> players = new ArrayList<>();
 
     private final Catalogue catalogue = new Catalogue();
 
     private final PenaltyBox penaltyBox = new PenaltyBox();
 
-    private int currentPlayerIndex = 0;
+    private Player currentPlayer = null;
 
     public  Game(){
     }
 
     public void add(String playerName) {
-        players.add(new PlayerName(playerName));
+        players.add(new Player(players.size(), new PlayerName(playerName)));
         places[players.size()] = 0;
         purses[players.size()] = 0;
+        if(currentPlayer == null)
+            currentPlayer = players.get(0);
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
     }
 
     public void roll(int roll) {
-        System.out.println(players.get(currentPlayerIndex) + " is the current player");
+        System.out.println(currentPlayer.name() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
         if (penaltyBox.isInPenaltyBox(this)) {
             if (isEven(roll)) {
-                penaltyBox.keepInPenaltyBox(new Player(currentPlayerIndex, this.players.get(currentPlayerIndex)));
+                penaltyBox.keepInPenaltyBox(currentPlayer);
             } else {
-                penaltyBox.fetchFromPenaltyBox(new Player(currentPlayerIndex, this.players.get(currentPlayerIndex)));
+                penaltyBox.fetchFromPenaltyBox(currentPlayer);
 
                 play(roll);
             }
@@ -44,13 +46,13 @@ public class Game {
     }
 
     public boolean playerAnsweredCorrectly() {
-        int playerIndex = this.currentPlayerIndex;
+        int playerIndex = currentPlayer.index();
 
         if (penaltyBox.isNotAllowedToPlay(playerIndex)){
             selectNextPlayer();
             return true;
         } else {
-            winCoin(new Player(playerIndex, players.get(playerIndex)));
+            winCoin(currentPlayer);
             selectNextPlayer();
 
             return shouldGameContinue(playerIndex);
@@ -59,7 +61,7 @@ public class Game {
 
     public boolean playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
-        penaltyBox.sendToPenaltyBox(new Player(currentPlayerIndex, this.players.get(currentPlayerIndex)));
+        penaltyBox.sendToPenaltyBox(currentPlayer);
 
         selectNextPlayer();
         return true;
@@ -70,13 +72,14 @@ public class Game {
     }
 
     private void play(int roll) {
-        int playerPlace = movePlayer(roll, new Player(currentPlayerIndex, players.get(currentPlayerIndex)));
+        int playerPlace = movePlayer(roll, currentPlayer);
         catalogue.askQuestion(this.currentCategory(playerPlace));
     }
 
     private void selectNextPlayer() {
-        currentPlayerIndex++;
-        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+        var nextPlayerIndex = players.indexOf(currentPlayer) + 1;
+        if (nextPlayerIndex == players.size()) nextPlayerIndex = 0;
+        currentPlayer = players.get(nextPlayerIndex);
     }
 
     /**
@@ -170,7 +173,7 @@ public class Game {
         }
 
         public boolean isInPenaltyBox(Game game) {
-            return inPenaltyBox[game.currentPlayerIndex];
+            return inPenaltyBox[game.currentPlayer.index()];
         }
 
         public void sendToPenaltyBox(Player player) {
