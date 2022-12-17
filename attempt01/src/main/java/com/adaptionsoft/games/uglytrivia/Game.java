@@ -66,19 +66,19 @@ public class Game {
     }
 
     private void play(int roll) {
-        movePlayer(roll, currentPlayerIndex);
-        int playerPlace = places[currentPlayerIndex];
+        int playerPlace = movePlayer(roll, currentPlayerIndex);
         System.out.println("The category is " + currentCategory(playerPlace));
         askQuestion(playerPlace);
     }
 
-    private void movePlayer(int roll, int playerIndex) {
+    private int movePlayer(int roll, int playerIndex) {
         places[playerIndex] = places[playerIndex] + roll;
         if (places[playerIndex] > 11) places[playerIndex] = places[playerIndex] - 12;
 
         System.out.println(players.get(playerIndex)
                            + "'s new location is "
                            + places[playerIndex]);
+        return places[playerIndex];
     }
 
     public boolean playerAnsweredCorrectly() {
