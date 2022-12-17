@@ -36,10 +36,6 @@ public class Game {
         return new Question("Rock Question " + index);
     }
 
-    public boolean isPlayable() {
-        return (howManyPlayers() >= 2);
-    }
-
     public boolean add(String playerName) {
         players.add(new PlayerName(playerName));
         places[howManyPlayers()] = 0;
