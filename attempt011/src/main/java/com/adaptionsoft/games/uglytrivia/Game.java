@@ -74,8 +74,8 @@ public class Game {
     }
 
     private void play(int roll) {
-        int playerPlace = board.movePlayer(roll, currentPlayer);
-        catalogue.askQuestion(this.board.currentCategory(playerPlace));
+        var category = board.movePlayer(roll, currentPlayer);
+        catalogue.askQuestion(category);
     }
 
     private void selectNextPlayer() {
@@ -142,7 +142,7 @@ public class Game {
             places[playerIndex] = 0;
         }
 
-        public int movePlayer(int roll, Player player) {
+        public Category movePlayer(int roll, Player player) {
             int index = player.index();
             places[index] = places[index] + roll;
             if (places[index] > 11) places[index] = places[index] - 12;
@@ -150,7 +150,8 @@ public class Game {
             System.out.println(player.name()
                                + "'s new location is "
                                + places[index]);
-            return places[index];
+
+            return currentCategory(places[index]);
         }
 
         /**
@@ -158,7 +159,7 @@ public class Game {
          *
          * @param place
          */
-        public Category currentCategory(int place) {
+        private Category currentCategory(int place) {
             if (place == 0) return Category.Pop;
             if (place == 4) return Category.Pop;
             if (place == 8) return Category.Pop;
