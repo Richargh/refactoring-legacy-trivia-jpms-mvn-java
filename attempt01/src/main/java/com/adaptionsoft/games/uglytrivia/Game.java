@@ -86,13 +86,11 @@ public class Game {
                                    + " Gold Coins.");
 
                 boolean winner = didPlayerWin();
-                currentPlayerIndex++;
-                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+                selectNextPlayer();
 
                 return winner;
             } else {
-                currentPlayerIndex++;
-                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+                selectNextPlayer();
                 return true;
             }
         } else {
@@ -104,8 +102,7 @@ public class Game {
                                + " Gold Coins.");
 
             boolean winner = didPlayerWin();
-            currentPlayerIndex++;
-            if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+            selectNextPlayer();
 
             return winner;
         }
@@ -115,9 +112,13 @@ public class Game {
         System.out.println("Question was incorrectly answered");
         sendToPenaltyBox(currentPlayerIndex);
 
+        selectNextPlayer();
+        return true;
+    }
+
+    private void selectNextPlayer() {
         currentPlayerIndex++;
         if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-        return true;
     }
 
     private void sendToPenaltyBox(int playerIndex) {
