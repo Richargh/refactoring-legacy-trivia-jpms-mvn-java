@@ -14,6 +14,8 @@ public class Game {
 
     private final Board board = new Board();
 
+    private final Purses purses = new Purses();
+
     private Player currentPlayer = null;
 
     public  Game(){
@@ -22,7 +24,7 @@ public class Game {
     public void add(String playerName) {
         players.add(new Player(players.size(), new PlayerName(playerName)));
         board.addPlayerToBoard(players.size());
-        purses[players.size()] = 0;
+        purses.getPurses()[players.size()] = 0;
         if(currentPlayer == null)
             currentPlayer = players.get(0);
 
@@ -54,10 +56,10 @@ public class Game {
             selectNextPlayer();
             return true;
         } else {
-            winCoin(currentPlayer);
+            purses.winCoin(currentPlayer, this);
             selectNextPlayer();
 
-            return shouldGameContinue(playerIndex);
+            return purses.shouldGameContinue(playerIndex, this);
         }
     }
 
@@ -85,23 +87,6 @@ public class Game {
     }
 
     /**
-     * Purses
-     */
-    private final int[] purses = new int[6];
-    private void winCoin(Player player) {
-        System.out.println("Answer was correct!!!!");
-        purses[player.index()]++;
-        System.out.println(player.name()
-                           + " now has "
-                           + purses[player.index()]
-                           + " Gold Coins.");
-    }
-
-    private boolean shouldGameContinue(int playerIndex) {
-        return purses[playerIndex] != 6;
-    }
-
-    /**
      * Extracted Types
      */
     private enum Category {
@@ -109,6 +94,34 @@ public class Game {
         Science,
         Sports,
         Rock
+    }
+
+    public class Purses {
+
+        /**
+         * Purses
+         */
+        final int[] purses = new int[6];
+
+        public int[] getPurses() {
+            return purses;
+        }
+
+        public Purses() {
+        }
+
+        public void winCoin(Player player, Game game) {
+            System.out.println("Answer was correct!!!!");
+            getPurses()[player.index()]++;
+            System.out.println(player.name()
+                               + " now has "
+                               + getPurses()[player.index()]
+                               + " Gold Coins.");
+        }
+
+        public boolean shouldGameContinue(int playerIndex, Game game) {
+            return getPurses()[playerIndex] != 6;
+        }
     }
 
     private record Player(int index, PlayerName name) {
