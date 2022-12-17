@@ -76,14 +76,15 @@ public class Game {
     }
 
     public boolean playerAnsweredCorrectly() {
-        int currentPlayerIndex = this.currentPlayerIndex;
-        if (inPenaltyBox[currentPlayerIndex] && !isGettingOutOfPenaltyBox){
+        int playerIndex = this.currentPlayerIndex;
+
+        if (inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox){
             selectNextPlayer();
             return true;
         } else {
-            winCoin(currentPlayerIndex);
+            winCoin(playerIndex);
 
-            boolean winner = didPlayerWin(currentPlayerIndex);
+            boolean winner = didPlayerWin(playerIndex);
             selectNextPlayer();
 
             return winner;
