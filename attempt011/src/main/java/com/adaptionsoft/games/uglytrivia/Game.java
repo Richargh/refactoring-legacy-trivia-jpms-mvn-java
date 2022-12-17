@@ -15,7 +15,6 @@ public class Game {
     private int currentPlayerIndex = 0;
 
     public  Game(){
-        catalogue.initQuestionCatalogue();
     }
 
     public void add(String playerName) {
@@ -198,6 +197,7 @@ public class Game {
         private final List<Question> rockQuestions = new LinkedList<Question>();
 
         public Catalogue() {
+            initQuestionCatalogue();
         }
 
         private void initQuestionCatalogue() {
