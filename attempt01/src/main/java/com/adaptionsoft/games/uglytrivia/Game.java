@@ -49,11 +49,9 @@ public class Game {
 
         if (inPenaltyBox[currentPlayerIndex]) {
             if (isEven(roll)) {
-                isGettingOutOfPenaltyBox[currentPlayerIndex] = false;
-                System.out.println(players.get(currentPlayerIndex) + " is not getting out of the penalty box");
+                keepInPenaltyBox();
             } else {
-                isGettingOutOfPenaltyBox[currentPlayerIndex] = true;
-                System.out.println(players.get(currentPlayerIndex) + " is getting out of the penalty box");
+                fetchFromPenaltyBox();
 
                 play(roll);
             }
@@ -120,6 +118,16 @@ public class Game {
     private void sendToPenaltyBox(int playerIndex) {
         System.out.println(players.get(playerIndex) + " was sent to the penalty box");
         inPenaltyBox[playerIndex] = true;
+    }
+
+    private void fetchFromPenaltyBox() {
+        isGettingOutOfPenaltyBox[currentPlayerIndex] = true;
+        System.out.println(players.get(currentPlayerIndex) + " is getting out of the penalty box");
+    }
+
+    private void keepInPenaltyBox() {
+        isGettingOutOfPenaltyBox[currentPlayerIndex] = false;
+        System.out.println(players.get(currentPlayerIndex) + " is not getting out of the penalty box");
     }
 
     private Category currentCategory(int place) {
