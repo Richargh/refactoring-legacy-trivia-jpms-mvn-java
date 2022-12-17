@@ -10,6 +10,8 @@ public class Game {
 
     private final Catalogue catalogue = new Catalogue();
 
+    private final PenaltyBox penaltyBox = new PenaltyBox();
+
     private int currentPlayerIndex = 0;
 
     public  Game(){
@@ -20,8 +22,8 @@ public class Game {
         players.add(new PlayerName(playerName));
         places[players.size()] = 0;
         purses[players.size()] = 0;
-        inPenaltyBox[players.size()] = false;
-        isGettingOutOfPenaltyBox[players.size()] = false;
+        penaltyBox.getInPenaltyBox()[players.size()] = false;
+        penaltyBox.getIsGettingOutOfPenaltyBox()[players.size()] = false;
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
@@ -31,11 +33,11 @@ public class Game {
         System.out.println(players.get(currentPlayerIndex) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (isInPenaltyBox()) {
+        if (penaltyBox.isInPenaltyBox(this)) {
             if (isEven(roll)) {
-                keepInPenaltyBox(currentPlayerIndex);
+                penaltyBox.keepInPenaltyBox(currentPlayerIndex, this);
             } else {
-                fetchFromPenaltyBox(currentPlayerIndex);
+                penaltyBox.fetchFromPenaltyBox(currentPlayerIndex, this);
 
                 play(roll);
             }
@@ -47,7 +49,7 @@ public class Game {
     public boolean playerAnsweredCorrectly() {
         int playerIndex = this.currentPlayerIndex;
 
-        if (isNotAllowedToPlay(playerIndex)){
+        if (penaltyBox.isNotAllowedToPlay(playerIndex, this)){
             selectNextPlayer();
             return true;
         } else {
@@ -60,7 +62,7 @@ public class Game {
 
     public boolean playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
-        sendToPenaltyBox(currentPlayerIndex);
+        penaltyBox.sendToPenaltyBox(currentPlayerIndex, this);
 
         selectNextPlayer();
         return true;
@@ -111,35 +113,6 @@ public class Game {
     }
 
     /**
-     * Penalty Box
-     */
-    private final boolean[] inPenaltyBox  = new boolean[6];
-    private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
-
-    private boolean isNotAllowedToPlay(int playerIndex) {
-        return inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex];
-    }
-
-    private boolean isInPenaltyBox() {
-        return inPenaltyBox[currentPlayerIndex];
-    }
-
-    private void sendToPenaltyBox(int playerIndex) {
-        System.out.println(players.get(playerIndex) + " was sent to the penalty box");
-        inPenaltyBox[playerIndex] = true;
-    }
-
-    private void fetchFromPenaltyBox(int playerIndex) {
-        isGettingOutOfPenaltyBox[playerIndex] = true;
-        System.out.println(players.get(playerIndex) + " is getting out of the penalty box");
-    }
-
-    private void keepInPenaltyBox(int playerIndex) {
-        isGettingOutOfPenaltyBox[playerIndex] = false;
-        System.out.println(players.get(playerIndex) + " is not getting out of the penalty box");
-    }
-
-    /**
      * Purses
      */
     private final int[] purses = new int[6];
@@ -177,6 +150,50 @@ public class Game {
         @Override
         public String toString() {
             return rawValue;
+        }
+    }
+
+    public class PenaltyBox {
+
+        /**
+         * Penalty Box
+         */
+        private final boolean[] inPenaltyBox = new boolean[6];
+
+        public boolean[] getInPenaltyBox() {
+            return inPenaltyBox;
+        }
+
+        private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
+
+        public boolean[] getIsGettingOutOfPenaltyBox() {
+            return isGettingOutOfPenaltyBox;
+        }
+
+        public PenaltyBox() {
+        }
+
+        private boolean isNotAllowedToPlay(int playerIndex, Game game) {
+            return getInPenaltyBox()[playerIndex] && !getIsGettingOutOfPenaltyBox()[playerIndex];
+        }
+
+        private boolean isInPenaltyBox(Game game) {
+            return getInPenaltyBox()[game.currentPlayerIndex];
+        }
+
+        private void sendToPenaltyBox(int playerIndex, Game game) {
+            System.out.println(game.players.get(playerIndex) + " was sent to the penalty box");
+            getInPenaltyBox()[playerIndex] = true;
+        }
+
+        private void fetchFromPenaltyBox(int playerIndex, Game game) {
+            getIsGettingOutOfPenaltyBox()[playerIndex] = true;
+            System.out.println(game.players.get(playerIndex) + " is getting out of the penalty box");
+        }
+
+        private void keepInPenaltyBox(int playerIndex, Game game) {
+            getIsGettingOutOfPenaltyBox()[playerIndex] = false;
+            System.out.println(game.players.get(playerIndex) + " is not getting out of the penalty box");
         }
     }
 
