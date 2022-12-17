@@ -17,7 +17,7 @@ public class Game {
     private final List<Question> rockQuestions = new LinkedList<>();
 
     private int currentPlayerIndex = 0;
-    private boolean isGettingOutOfPenaltyBox;
+    private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
 
     public  Game(){
         initQuestionCatalogue();
@@ -37,6 +37,7 @@ public class Game {
         places[players.size()] = 0;
         purses[players.size()] = 0;
         inPenaltyBox[players.size()] = false;
+        isGettingOutOfPenaltyBox[players.size()] = false;
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
@@ -48,10 +49,10 @@ public class Game {
 
         if (inPenaltyBox[currentPlayerIndex]) {
             if (isEven(roll)) {
-                isGettingOutOfPenaltyBox = false;
+                isGettingOutOfPenaltyBox[currentPlayerIndex] = false;
                 System.out.println(players.get(currentPlayerIndex) + " is not getting out of the penalty box");
             } else {
-                isGettingOutOfPenaltyBox = true;
+                isGettingOutOfPenaltyBox[currentPlayerIndex] = true;
                 System.out.println(players.get(currentPlayerIndex) + " is getting out of the penalty box");
 
                 play(roll);
@@ -83,7 +84,7 @@ public class Game {
     public boolean playerAnsweredCorrectly() {
         int playerIndex = this.currentPlayerIndex;
 
-        if (inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox){
+        if (inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex]){
             selectNextPlayer();
             return true;
         } else {
