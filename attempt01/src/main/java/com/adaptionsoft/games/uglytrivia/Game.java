@@ -113,12 +113,16 @@ public class Game {
 
     public boolean playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayerIndex) + " was sent to the penalty box");
-        inPenaltyBox[currentPlayerIndex] = true;
+        sendToPenaltyBox();
 
         currentPlayerIndex++;
         if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
         return true;
+    }
+
+    private void sendToPenaltyBox() {
+        System.out.println(players.get(currentPlayerIndex) + " was sent to the penalty box");
+        inPenaltyBox[currentPlayerIndex] = true;
     }
 
     private String currentCategory() {
