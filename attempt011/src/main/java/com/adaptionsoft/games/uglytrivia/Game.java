@@ -32,7 +32,7 @@ public class Game {
 
         if (penaltyBox.isInPenaltyBox(this)) {
             if (isEven(roll)) {
-                penaltyBox.keepInPenaltyBox(currentPlayerIndex, this.players.get(currentPlayerIndex));
+                penaltyBox.keepInPenaltyBox(new Player(currentPlayerIndex, this.players.get(currentPlayerIndex)));
             } else {
                 penaltyBox.fetchFromPenaltyBox(currentPlayerIndex, this.players.get(currentPlayerIndex));
 
@@ -136,6 +136,9 @@ public class Game {
         Rock
     }
 
+    private record Player(int index, PlayerName name) {
+    }
+
     private record PlayerName(String rawValue){
         @Override
         public String toString() {
@@ -180,9 +183,9 @@ public class Game {
             System.out.println(name + " is getting out of the penalty box");
         }
 
-        public void keepInPenaltyBox(int playerIndex, PlayerName name) {
-            isGettingOutOfPenaltyBox[playerIndex] = false;
-            System.out.println(name + " is not getting out of the penalty box");
+        public void keepInPenaltyBox(Player player) {
+            isGettingOutOfPenaltyBox[player.index()] = false;
+            System.out.println(player.name() + " is not getting out of the penalty box");
         }
     }
 
