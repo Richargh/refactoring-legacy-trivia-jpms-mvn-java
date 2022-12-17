@@ -22,8 +22,6 @@ public class Game {
         players.add(new PlayerName(playerName));
         places[players.size()] = 0;
         purses[players.size()] = 0;
-        penaltyBox.getInPenaltyBox()[players.size()] = false;
-        penaltyBox.getIsGettingOutOfPenaltyBox()[players.size()] = false;
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
