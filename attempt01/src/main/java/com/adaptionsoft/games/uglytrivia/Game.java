@@ -20,6 +20,10 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
+        initQuestionCatalogue();
+    }
+
+    private void initQuestionCatalogue() {
         for (int i = 0; i < 50; i++) {
             popQuestions.add(new Question("Pop Question " + i));
             scienceQuestions.add(new Question(("Science Question " + i)));
