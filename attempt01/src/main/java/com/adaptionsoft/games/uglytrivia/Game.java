@@ -83,7 +83,7 @@ public class Game {
         } else {
             winCoin(currentPlayerIndex);
 
-            boolean winner = didPlayerWin();
+            boolean winner = didPlayerWin(currentPlayerIndex);
             selectNextPlayer();
 
             return winner;
@@ -145,8 +145,8 @@ public class Game {
         return players.size();
     }
 
-    private boolean didPlayerWin() {
-        return !(purses[currentPlayerIndex] == 6);
+    private boolean didPlayerWin(int playerIndex) {
+        return !(purses[playerIndex] == 6);
     }
 
     private record PlayerName(String rawValue){
