@@ -67,7 +67,7 @@ public class Game {
 
     private void play(int roll) {
         movePlayer(roll, currentPlayerIndex);
-        System.out.println("The category is " + currentCategory());
+        System.out.println("The category is " + currentCategory(places[currentPlayerIndex]));
         askQuestion();
     }
 
@@ -121,27 +121,27 @@ public class Game {
         inPenaltyBox[playerIndex] = true;
     }
 
-    private String currentCategory() {
-        if (places[currentPlayerIndex] == 0) return "Pop";
-        if (places[currentPlayerIndex] == 4) return "Pop";
-        if (places[currentPlayerIndex] == 8) return "Pop";
-        if (places[currentPlayerIndex] == 1) return "Science";
-        if (places[currentPlayerIndex] == 5) return "Science";
-        if (places[currentPlayerIndex] == 9) return "Science";
-        if (places[currentPlayerIndex] == 2) return "Sports";
-        if (places[currentPlayerIndex] == 6) return "Sports";
-        if (places[currentPlayerIndex] == 10) return "Sports";
+    private String currentCategory(int place) {
+        if (place == 0) return "Pop";
+        if (place == 4) return "Pop";
+        if (place == 8) return "Pop";
+        if (place == 1) return "Science";
+        if (place == 5) return "Science";
+        if (place == 9) return "Science";
+        if (place == 2) return "Sports";
+        if (place == 6) return "Sports";
+        if (place == 10) return "Sports";
         return "Rock";
     }
 
     private void askQuestion() {
-        if (currentCategory() == "Pop")
+        if (currentCategory(places[currentPlayerIndex]) == "Pop")
             System.out.println(popQuestions.remove(0));
-        if (currentCategory() == "Science")
+        if (currentCategory(places[currentPlayerIndex]) == "Science")
             System.out.println(scienceQuestions.remove(0));
-        if (currentCategory() == "Sports")
+        if (currentCategory(places[currentPlayerIndex]) == "Sports")
             System.out.println(sportsQuestions.remove(0));
-        if (currentCategory() == "Rock")
+        if (currentCategory(places[currentPlayerIndex]) == "Rock")
             System.out.println(rockQuestions.remove(0));
     }
 
