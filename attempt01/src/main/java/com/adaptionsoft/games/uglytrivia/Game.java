@@ -107,7 +107,7 @@ public class Game {
         return "Rock";
     }
 
-    public boolean wasCorrectlyAnswered() {
+    public boolean playerAnsweredCorrectly() {
         if (inPenaltyBox[currentPlayer]){
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
@@ -147,7 +147,7 @@ public class Game {
         }
     }
 
-    public boolean wrongAnswer(){
+    public boolean playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
         System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;

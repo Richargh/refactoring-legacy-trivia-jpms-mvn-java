@@ -40,9 +40,9 @@ class GameTest {
             var correctAnswer = answers.rawValues[i % answers.rawValues.length];
             testee.roll(roll);
             if(correctAnswer)
-                testee.wasCorrectlyAnswered();
+                testee.playerAnsweredCorrectly();
             else
-                testee.wrongAnswer();
+                testee.playerAnsweredWrong();
         }
 
         return byteStream.toString();
