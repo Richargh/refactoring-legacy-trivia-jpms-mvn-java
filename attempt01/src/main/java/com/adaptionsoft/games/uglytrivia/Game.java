@@ -63,9 +63,7 @@ public class Game {
                 System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
-
         } else {
-
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
@@ -75,7 +73,6 @@ public class Game {
             System.out.println("The category is " + currentCategory());
             askQuestion();
         }
-
     }
 
     public boolean playerAnsweredCorrectly() {
@@ -98,11 +95,7 @@ public class Game {
                 if (currentPlayer == players.size()) currentPlayer = 0;
                 return true;
             }
-
-
-
         } else {
-
             System.out.println("Answer was corrent!!!!");
             purses[currentPlayer]++;
             System.out.println(players.get(currentPlayer)
@@ -156,13 +149,11 @@ public class Game {
         return players.size();
     }
 
-
     private boolean didPlayerWin() {
         return !(purses[currentPlayer] == 6);
     }
 
     private record PlayerName(String rawValue){
-
         @Override
         public String toString() {
             return rawValue;
@@ -170,7 +161,6 @@ public class Game {
     }
 
     private record Question(String rawValue){
-
         @Override
         public String toString() {
             return rawValue;
