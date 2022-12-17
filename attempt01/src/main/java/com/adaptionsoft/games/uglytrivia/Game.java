@@ -47,7 +47,7 @@ public class Game {
         System.out.println("They have rolled a " + roll);
 
         if (inPenaltyBox[currentPlayerIndex]) {
-            if (roll % 2 == 0) {
+            if (isEven(roll)) {
                 isGettingOutOfPenaltyBox = false;
                 System.out.println(players.get(currentPlayerIndex) + " is not getting out of the penalty box");
             } else {
@@ -59,6 +59,10 @@ public class Game {
         } else {
             play(roll);
         }
+    }
+
+    private static boolean isEven(int roll) {
+        return roll % 2 == 0;
     }
 
     private void play(int roll) {
