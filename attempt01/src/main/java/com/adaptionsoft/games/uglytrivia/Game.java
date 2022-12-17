@@ -32,7 +32,7 @@ public class Game {
         }
     }
 
-    public Question createRockQuestion(int index){
+    private Question createRockQuestion(int index){
         return new Question("Rock Question " + index);
     }
 
@@ -47,7 +47,7 @@ public class Game {
         return true;
     }
 
-    public int howManyPlayers() {
+    private int howManyPlayers() {
         return players.size();
     }
 
