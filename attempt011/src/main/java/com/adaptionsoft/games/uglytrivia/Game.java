@@ -34,7 +34,7 @@ public class Game {
             if (isEven(roll)) {
                 penaltyBox.keepInPenaltyBox(new Player(currentPlayerIndex, this.players.get(currentPlayerIndex)));
             } else {
-                penaltyBox.fetchFromPenaltyBox(currentPlayerIndex, this.players.get(currentPlayerIndex));
+                penaltyBox.fetchFromPenaltyBox(new Player(currentPlayerIndex, this.players.get(currentPlayerIndex)));
 
                 play(roll);
             }
@@ -59,7 +59,7 @@ public class Game {
 
     public boolean playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
-        penaltyBox.sendToPenaltyBox(currentPlayerIndex, this.players.get(currentPlayerIndex));
+        penaltyBox.sendToPenaltyBox(new Player(currentPlayerIndex, this.players.get(currentPlayerIndex)));
 
         selectNextPlayer();
         return true;
@@ -173,14 +173,14 @@ public class Game {
             return inPenaltyBox[game.currentPlayerIndex];
         }
 
-        public void sendToPenaltyBox(int playerIndex, PlayerName name) {
-            System.out.println(name + " was sent to the penalty box");
-            inPenaltyBox[playerIndex] = true;
+        public void sendToPenaltyBox(Player player) {
+            System.out.println(player.name() + " was sent to the penalty box");
+            inPenaltyBox[player.index()] = true;
         }
 
-        public void fetchFromPenaltyBox(int playerIndex, PlayerName name) {
-            isGettingOutOfPenaltyBox[playerIndex] = true;
-            System.out.println(name + " is getting out of the penalty box");
+        public void fetchFromPenaltyBox(Player player) {
+            isGettingOutOfPenaltyBox[player.index()] = true;
+            System.out.println(player.name() + " is getting out of the penalty box");
         }
 
         public void keepInPenaltyBox(Player player) {
