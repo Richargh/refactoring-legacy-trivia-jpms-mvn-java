@@ -46,7 +46,7 @@ public class Game {
     public boolean playerAnsweredCorrectly() {
         int playerIndex = this.currentPlayerIndex;
 
-        if (penaltyBox.isNotAllowedToPlay(playerIndex, this)){
+        if (penaltyBox.isNotAllowedToPlay(playerIndex)){
             selectNextPlayer();
             return true;
         } else {
@@ -165,7 +165,7 @@ public class Game {
         public PenaltyBox() {
         }
 
-        public boolean isNotAllowedToPlay(int playerIndex, Game game) {
+        public boolean isNotAllowedToPlay(int playerIndex) {
             return inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex];
         }
 
