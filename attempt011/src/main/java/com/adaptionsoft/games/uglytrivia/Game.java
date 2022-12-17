@@ -21,13 +21,17 @@ public class Game {
 
     public void add(String playerName) {
         players.add(new Player(players.size(), new PlayerName(playerName)));
-        board.getPlaces()[players.size()] = 0;
+        addPlayerToBoard(players.size());
         purses[players.size()] = 0;
         if(currentPlayer == null)
             currentPlayer = players.get(0);
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
+    }
+
+    private void addPlayerToBoard(int playerIndex) {
+        board.getPlaces()[playerIndex] = 0;
     }
 
     public void roll(int roll) {
