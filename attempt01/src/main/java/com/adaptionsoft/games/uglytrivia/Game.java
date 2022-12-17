@@ -2,11 +2,13 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
-    ArrayList players = new ArrayList();
+
+    private final List<PlayerName> players = new ArrayList<>();
     int[] places = new int[6];
-    int[] purses  = new int[6];
+    int[] purses = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
 
     LinkedList popQuestions = new LinkedList();
@@ -35,9 +37,7 @@ public class Game {
     }
 
     public boolean add(String playerName) {
-
-
-        players.add(playerName);
+        players.add(new PlayerName(playerName));
         places[howManyPlayers()] = 0;
         purses[howManyPlayers()] = 0;
         inPenaltyBox[howManyPlayers()] = false;
@@ -165,5 +165,13 @@ public class Game {
 
     private boolean didPlayerWin() {
         return !(purses[currentPlayer] == 6);
+    }
+
+    private record PlayerName(String rawValue){
+
+        @Override
+        public String toString() {
+            return rawValue;
+        }
     }
 }
