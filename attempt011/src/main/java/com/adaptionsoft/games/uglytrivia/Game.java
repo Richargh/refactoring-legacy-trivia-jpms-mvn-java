@@ -24,7 +24,7 @@ public class Game {
     public void add(String playerName) {
         players.add(new Player(players.size(), new PlayerName(playerName)));
         board.addPlayerToBoard(players.size());
-        purses.getPurses()[players.size()] = 0;
+        purses.addPlayerPurse(players.size());
         if(currentPlayer == null)
             currentPlayer = players.get(0);
 
@@ -121,6 +121,10 @@ public class Game {
 
         public boolean shouldGameContinue(int playerIndex, Game game) {
             return getPurses()[playerIndex] != 6;
+        }
+
+        private void addPlayerPurse(int playerIndex) {
+            getPurses()[playerIndex] = 0;
         }
     }
 
