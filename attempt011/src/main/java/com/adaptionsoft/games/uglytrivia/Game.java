@@ -71,7 +71,7 @@ public class Game {
 
     private void play(int roll) {
         int playerPlace = movePlayer(roll, new Player(currentPlayerIndex, players.get(currentPlayerIndex)));
-        catalogue.askQuestion(playerPlace, this);
+        catalogue.askQuestion(this.currentCategory(playerPlace));
     }
 
     private void selectNextPlayer() {
@@ -216,16 +216,16 @@ public class Game {
             }
         }
 
-        private void askQuestion(int place, Game game) {
-            System.out.println("The category is " + game.currentCategory(place));
+        public void askQuestion(Category category) {
+            System.out.println("The category is " + category);
 
-            if (game.currentCategory(place) == Category.Pop) System.out.println(popQuestions
+            if (category == Category.Pop) System.out.println(popQuestions
                                        .remove(0));
-            if (game.currentCategory(place) == Category.Science) System.out.println(scienceQuestions
+            if (category == Category.Science) System.out.println(scienceQuestions
                                        .remove(0));
-            if (game.currentCategory(place) == Category.Sports) System.out.println(sportsQuestions
+            if (category == Category.Sports) System.out.println(sportsQuestions
                                        .remove(0));
-            if (game.currentCategory(place) == Category.Rock) System.out.println(rockQuestions
+            if (category == Category.Rock) System.out.println(rockQuestions
                                        .remove(0));
         }
     }
