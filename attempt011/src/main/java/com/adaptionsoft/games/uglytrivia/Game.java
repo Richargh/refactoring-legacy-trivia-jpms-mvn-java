@@ -33,9 +33,9 @@ public class Game {
 
         if (penaltyBox.isInPenaltyBox(this)) {
             if (isEven(roll)) {
-                penaltyBox.keepInPenaltyBox(currentPlayerIndex, this);
+                penaltyBox.keepInPenaltyBox(currentPlayerIndex, this.players.get(currentPlayerIndex));
             } else {
-                penaltyBox.fetchFromPenaltyBox(currentPlayerIndex, this);
+                penaltyBox.fetchFromPenaltyBox(currentPlayerIndex, this.players.get(currentPlayerIndex));
 
                 play(roll);
             }
@@ -60,7 +60,7 @@ public class Game {
 
     public boolean playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
-        penaltyBox.sendToPenaltyBox(currentPlayerIndex, this);
+        penaltyBox.sendToPenaltyBox(currentPlayerIndex, this.players.get(currentPlayerIndex));
 
         selectNextPlayer();
         return true;
@@ -171,19 +171,19 @@ public class Game {
             return inPenaltyBox[game.currentPlayerIndex];
         }
 
-        public void sendToPenaltyBox(int playerIndex, Game game) {
-            System.out.println(game.players.get(playerIndex) + " was sent to the penalty box");
+        public void sendToPenaltyBox(int playerIndex, PlayerName name) {
+            System.out.println(name + " was sent to the penalty box");
             inPenaltyBox[playerIndex] = true;
         }
 
-        public void fetchFromPenaltyBox(int playerIndex, Game game) {
+        public void fetchFromPenaltyBox(int playerIndex, PlayerName name) {
             isGettingOutOfPenaltyBox[playerIndex] = true;
-            System.out.println(game.players.get(playerIndex) + " is getting out of the penalty box");
+            System.out.println(name + " is getting out of the penalty box");
         }
 
-        public void keepInPenaltyBox(int playerIndex, Game game) {
+        public void keepInPenaltyBox(int playerIndex, PlayerName name) {
             isGettingOutOfPenaltyBox[playerIndex] = false;
-            System.out.println(game.players.get(playerIndex) + " is not getting out of the penalty box");
+            System.out.println(name + " is not getting out of the penalty box");
         }
     }
 
