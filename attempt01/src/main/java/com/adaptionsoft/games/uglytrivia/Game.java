@@ -7,17 +7,17 @@ import java.util.List;
 public class Game {
 
     private final List<PlayerName> players = new ArrayList<>();
-    int[] places = new int[6];
-    int[] purses = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+    private final int[] places = new int[6];
+    private final int[] purses = new int[6];
+    private final boolean[] inPenaltyBox  = new boolean[6];
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    private final LinkedList popQuestions = new LinkedList();
+    private final LinkedList scienceQuestions = new LinkedList();
+    private final LinkedList sportsQuestions = new LinkedList();
+    private final LinkedList rockQuestions = new LinkedList();
 
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    private int currentPlayer = 0;
+    private boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
         for (int i = 0; i < 50; i++) {
