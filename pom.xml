@@ -16,11 +16,12 @@
     </modules>
 
     <properties>
-        <junit.version>5.8.1</junit.version>
+        <junit.version>5.9.1</junit.version>
         <approvaltests.version>18.5.0</approvaltests.version>
+        <gson.version>2.10</gson.version>
 
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -34,6 +35,11 @@
                 <groupId>com.approvaltests</groupId>
                 <artifactId>approvaltests</artifactId>
                 <version>${approvaltests.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
