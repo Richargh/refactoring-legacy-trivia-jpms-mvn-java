@@ -8,10 +8,7 @@ public class Game {
 
     private final List<PlayerName> players = new ArrayList<>();
 
-    private final boolean[] inPenaltyBox  = new boolean[6];
-
     private int currentPlayerIndex = 0;
-    private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
 
     public  Game(){
         initQuestionCatalogue();
@@ -48,7 +45,7 @@ public class Game {
     public boolean playerAnsweredCorrectly() {
         int playerIndex = this.currentPlayerIndex;
 
-        if (inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex]){
+        if (isNotAllowedToPlay(playerIndex)){
             selectNextPlayer();
             return true;
         } else {
@@ -114,6 +111,13 @@ public class Game {
     /**
      * Penalty Box
      */
+    private final boolean[] inPenaltyBox  = new boolean[6];
+    private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
+
+    private boolean isNotAllowedToPlay(int playerIndex) {
+        return inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex];
+    }
+
     private void sendToPenaltyBox(int playerIndex) {
         System.out.println(players.get(playerIndex) + " was sent to the penalty box");
         inPenaltyBox[playerIndex] = true;
