@@ -70,7 +70,7 @@ public class Game {
     }
 
     private void play(int roll) {
-        int playerPlace = movePlayer(roll, currentPlayerIndex, players.get(currentPlayerIndex));
+        int playerPlace = movePlayer(roll, new Player(currentPlayerIndex, players.get(currentPlayerIndex)));
         catalogue.askQuestion(playerPlace, this);
     }
 
@@ -99,14 +99,14 @@ public class Game {
      * Places
      */
     private final int[] places = new int[6];
-    private int movePlayer(int roll, int playerIndex, PlayerName name) {
-        places[playerIndex] = places[playerIndex] + roll;
-        if (places[playerIndex] > 11) places[playerIndex] = places[playerIndex] - 12;
+    private int movePlayer(int roll, Player player) {
+        places[player.index()] = places[player.index()] + roll;
+        if (places[player.index()] > 11) places[player.index()] = places[player.index()] - 12;
 
-        System.out.println(name
+        System.out.println(player.name()
                            + "'s new location is "
-                           + places[playerIndex]);
-        return places[playerIndex];
+                           + places[player.index()]);
+        return places[player.index()];
     }
 
     /**
