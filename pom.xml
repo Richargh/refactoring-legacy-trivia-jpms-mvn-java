@@ -13,6 +13,7 @@
 
     <modules>
         <module>original</module>
+        <module>attempt01</module>
     </modules>
 
     <properties>

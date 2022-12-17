@@ -7,7 +7,8 @@ If you are working in a legacy code scenario you should definitely check out lin
 
 == Attempts
 
-* link:original[Original Trivia] with added approval tests
+* link:original/[Original Trivia] with added approval tests
+* link:attempt01/[Attempt 01], a refactoring without constraints
 
 == Features
 
