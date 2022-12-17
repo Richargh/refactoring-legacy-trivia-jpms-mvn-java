@@ -122,34 +122,41 @@ public class Game {
         inPenaltyBox[playerIndex] = true;
     }
 
-    private String currentCategory(int place) {
-        if (place == 0) return "Pop";
-        if (place == 4) return "Pop";
-        if (place == 8) return "Pop";
-        if (place == 1) return "Science";
-        if (place == 5) return "Science";
-        if (place == 9) return "Science";
-        if (place == 2) return "Sports";
-        if (place == 6) return "Sports";
-        if (place == 10) return "Sports";
-        return "Rock";
+    private Category currentCategory(int place) {
+        if (place == 0) return Category.Pop;
+        if (place == 4) return Category.Pop;
+        if (place == 8) return Category.Pop;
+        if (place == 1) return Category.Science;
+        if (place == 5) return Category.Science;
+        if (place == 9) return Category.Science;
+        if (place == 2) return Category.Sports;
+        if (place == 6) return Category.Sports;
+        if (place == 10)return Category.Sports;
+        return Category.Rock;
     }
 
     private void askQuestion(int place) {
         System.out.println("The category is " + currentCategory(place));
 
-        if (currentCategory(place) == "Pop")
+        if (currentCategory(place) == Category.Pop)
             System.out.println(popQuestions.remove(0));
-        if (currentCategory(place) == "Science")
+        if (currentCategory(place) == Category.Science)
             System.out.println(scienceQuestions.remove(0));
-        if (currentCategory(place) == "Sports")
+        if (currentCategory(place) == Category.Sports)
             System.out.println(sportsQuestions.remove(0));
-        if (currentCategory(place) == "Rock")
+        if (currentCategory(place) == Category.Rock)
             System.out.println(rockQuestions.remove(0));
     }
 
     private boolean didPlayerWin(int playerIndex) {
         return purses[playerIndex] != 6;
+    }
+
+    private enum Category {
+        Pop,
+        Science,
+        Sports,
+        Rock
     }
 
     private record PlayerName(String rawValue){
