@@ -34,7 +34,7 @@ public class Game {
         System.out.println(currentPlayer.name() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (penaltyBox.isInPenaltyBox(this)) {
+        if (penaltyBox.isInPenaltyBox(this.currentPlayer.index())) {
             if (isEven(roll)) {
                 penaltyBox.keepInPenaltyBox(currentPlayer);
             } else {
@@ -189,8 +189,8 @@ public class Game {
             return inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex];
         }
 
-        public boolean isInPenaltyBox(Game game) {
-            return inPenaltyBox[game.currentPlayer.index()];
+        public boolean isInPenaltyBox(int playerIndex) {
+            return inPenaltyBox[playerIndex];
         }
 
         public void sendToPenaltyBox(Player player) {
