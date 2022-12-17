@@ -70,7 +70,7 @@ public class Game {
             winCoin(playerIndex);
             selectNextPlayer();
 
-            return didPlayerWin(playerIndex);
+            return shouldGameContinue(playerIndex);
         }
     }
 
@@ -156,7 +156,7 @@ public class Game {
             System.out.println(rockQuestions.remove(0));
     }
 
-    private boolean didPlayerWin(int playerIndex) {
+    private boolean shouldGameContinue(int playerIndex) {
         return purses[playerIndex] != 6;
     }
 
