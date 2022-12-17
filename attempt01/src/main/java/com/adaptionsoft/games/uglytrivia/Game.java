@@ -68,7 +68,7 @@ public class Game {
     private void play(int roll) {
         movePlayer(roll, currentPlayerIndex);
         System.out.println("The category is " + currentCategory(places[currentPlayerIndex]));
-        askQuestion();
+        askQuestion(places[currentPlayerIndex]);
     }
 
     private void movePlayer(int roll, int playerIndex) {
@@ -134,14 +134,14 @@ public class Game {
         return "Rock";
     }
 
-    private void askQuestion() {
-        if (currentCategory(places[currentPlayerIndex]) == "Pop")
+    private void askQuestion(int place) {
+        if (currentCategory(place) == "Pop")
             System.out.println(popQuestions.remove(0));
-        if (currentCategory(places[currentPlayerIndex]) == "Science")
+        if (currentCategory(place) == "Science")
             System.out.println(scienceQuestions.remove(0));
-        if (currentCategory(places[currentPlayerIndex]) == "Sports")
+        if (currentCategory(place) == "Sports")
             System.out.println(sportsQuestions.remove(0));
-        if (currentCategory(places[currentPlayerIndex]) == "Rock")
+        if (currentCategory(place) == "Rock")
             System.out.println(rockQuestions.remove(0));
     }
 
