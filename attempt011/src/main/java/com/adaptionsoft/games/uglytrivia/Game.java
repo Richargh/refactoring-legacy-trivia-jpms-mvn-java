@@ -1,6 +1,7 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import com.adaptionsoft.games.uglytrivia.internal.Catalogue;
+import com.adaptionsoft.games.uglytrivia.internal.PenaltyBox;
 import com.adaptionsoft.games.uglytrivia.ports.Category;
 import com.adaptionsoft.games.uglytrivia.ports.Player;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerId;
@@ -142,36 +143,6 @@ public class Game {
             if (place == 6) return Category.Sports;
             if (place == 10)return Category.Sports;
             return Category.Rock;
-        }
-    }
-
-    public static class PenaltyBox {
-
-        private final boolean[] inPenaltyBox = new boolean[6];
-
-        private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
-
-        public boolean isNotAllowedToPlay(PlayerId playerId) {
-            return inPenaltyBox[playerId.rawValue()] && !isGettingOutOfPenaltyBox[playerId.rawValue()];
-        }
-
-        public boolean isInPenaltyBox(PlayerId playerId) {
-            return inPenaltyBox[playerId.rawValue()];
-        }
-
-        public void sendToPenaltyBox(Player player) {
-            System.out.println(player.name() + " was sent to the penalty box");
-            inPenaltyBox[player.id().rawValue()] = true;
-        }
-
-        public void fetchFromPenaltyBox(Player player) {
-            isGettingOutOfPenaltyBox[player.id().rawValue()] = true;
-            System.out.println(player.name() + " is getting out of the penalty box");
-        }
-
-        public void keepInPenaltyBox(Player player) {
-            isGettingOutOfPenaltyBox[player.id().rawValue()] = false;
-            System.out.println(player.name() + " is not getting out of the penalty box");
         }
     }
 }
