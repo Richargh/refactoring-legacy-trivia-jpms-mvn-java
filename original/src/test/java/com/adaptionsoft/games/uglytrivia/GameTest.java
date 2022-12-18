@@ -4,6 +4,7 @@ import org.approvaltests.combinations.CombinationApprovals;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
 
@@ -12,7 +13,7 @@ class GameTest {
     @Test
     void testWithApprovalTests() {
         CombinationApprovals.verifyAllCombinations(
-                this::rollWithResult,
+                this::playForResult,
                 new Rolls[]{
                         new Rolls(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
                         new Rolls(2, 4, 8),
@@ -26,12 +27,17 @@ class GameTest {
                 });
     }
 
-    private String rollWithResult(Rolls rolls, Answers answers){
+    private String playForResult(Rolls rolls, Answers answers) {
+        try(var byteStream = new ByteArrayOutputStream(); var printStream = new PrintStream(byteStream)){
+            System.setOut(printStream);
+            play(rolls, answers);
+            return byteStream.toString();
+        } catch (IOException exception){
+            throw new RuntimeException(exception);
+        }
+    }
 
-        var byteStream = new ByteArrayOutputStream();
-        var printStream = new PrintStream(byteStream);
-        System.setOut(printStream);
-
+    private void play(Rolls rolls, Answers answers) {
         var testee = new Game();
         testee.add("Alex");
         testee.add("Taylor");
@@ -44,8 +50,6 @@ class GameTest {
             else
                 testee.wrongAnswer();
         }
-
-        return byteStream.toString();
     }
 
     private record Rolls(int... rawValues){
