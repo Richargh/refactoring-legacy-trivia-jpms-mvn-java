@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.uglytrivia.ports.Category;
 import com.adaptionsoft.games.uglytrivia.ports.Player;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerId;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerName;
@@ -84,16 +85,6 @@ public class Game {
         var nextPlayerIndex = players.indexOf(currentPlayer) + 1;
         if (nextPlayerIndex == players.size()) nextPlayerIndex = 0;
         currentPlayer = players.get(nextPlayerIndex);
-    }
-
-    /**
-     * Extracted Types
-     */
-    private enum Category {
-        Pop,
-        Science,
-        Sports,
-        Rock
     }
 
     public static class Purses {
