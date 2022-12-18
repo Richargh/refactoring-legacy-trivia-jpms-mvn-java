@@ -16,9 +16,6 @@ public class Game {
 
     private Player currentPlayer = null;
 
-    public  Game(){
-    }
-
     public void add(String playerName) {
         var player = new Player(new PlayerId(players.size()), new PlayerName(playerName));
         players.add(player);
@@ -95,15 +92,9 @@ public class Game {
         Rock
     }
 
-    public class Purses {
+    public static class Purses {
 
-        /**
-         * Purses
-         */
         private final Map<PlayerId, Integer> allPurses = new HashMap<>();
-
-        public Purses() {
-        }
 
         public void winCoin(Player player) {
             System.out.println("Answer was correct!!!!");
@@ -147,13 +138,7 @@ public class Game {
 
     public static class Board {
 
-        /**
-         * Places
-         */
         private final Map<PlayerId, Integer> places = new HashMap<>();
-
-        public Board() {
-        }
 
         private void addPlayerToBoard(PlayerId playerId) {
             places.put(playerId, 0);
@@ -171,11 +156,6 @@ public class Game {
             return currentCategory(places.get(id));
         }
 
-        /**
-         * Category
-         *
-         * @param place
-         */
         private Category currentCategory(int place) {
             if (place == 0) return Category.Pop;
             if (place == 4) return Category.Pop;
@@ -190,17 +170,11 @@ public class Game {
         }
     }
 
-    public class PenaltyBox {
+    public static class PenaltyBox {
 
-        /**
-         * Penalty Box
-         */
         private final boolean[] inPenaltyBox = new boolean[6];
 
         private final boolean[] isGettingOutOfPenaltyBox = new boolean[6];
-
-        public PenaltyBox() {
-        }
 
         public boolean isNotAllowedToPlay(PlayerId playerId) {
             return inPenaltyBox[playerId.rawValue()] && !isGettingOutOfPenaltyBox[playerId.rawValue()];
@@ -228,13 +202,13 @@ public class Game {
 
     public static class Catalogue {
 
-        private final List<Question> popQuestions = new LinkedList<Question>();
+        private final List<Question> popQuestions = new LinkedList<>();
 
-        private final List<Question> scienceQuestions = new LinkedList<Question>();
+        private final List<Question> scienceQuestions = new LinkedList<>();
 
-        private final List<Question> sportsQuestions = new LinkedList<Question>();
+        private final List<Question> sportsQuestions = new LinkedList<>();
 
-        private final List<Question> rockQuestions = new LinkedList<Question>();
+        private final List<Question> rockQuestions = new LinkedList<>();
 
         public Catalogue() {
             initQuestionCatalogue();
