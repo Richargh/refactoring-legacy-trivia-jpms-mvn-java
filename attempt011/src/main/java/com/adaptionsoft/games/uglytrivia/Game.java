@@ -1,5 +1,9 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.uglytrivia.ports.Player;
+import com.adaptionsoft.games.uglytrivia.ports.PlayerId;
+import com.adaptionsoft.games.uglytrivia.ports.PlayerName;
+
 import java.util.*;
 
 public class Game {
@@ -112,20 +116,6 @@ public class Game {
 
         private void addPlayerPurse(PlayerId playerId) {
             allPurses.put(playerId, 0);
-        }
-    }
-
-    private record Player(PlayerId id, PlayerName name) {
-    }
-
-    private record PlayerId(int rawValue) {
-
-    }
-
-    private record PlayerName(String rawValue){
-        @Override
-        public String toString() {
-            return rawValue;
         }
     }
 
