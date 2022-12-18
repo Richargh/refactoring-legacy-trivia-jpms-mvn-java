@@ -1,8 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Game {
 
@@ -102,30 +100,29 @@ public class Game {
         /**
          * Purses
          */
-        final int[] purses = new int[6];
+        private final Map<PlayerIndex, Integer> allPurses = new HashMap<>();
 
         public Purses() {
         }
 
         public void winCoin(Player player) {
             System.out.println("Answer was correct!!!!");
-            purses[player.index().rawValue()]++;
+            var earnedCoins = allPurses.get(player.index()) + 1;
+            allPurses.put(player.index(), earnedCoins);
             System.out.println(player.name()
                                + " now has "
-                               + purses[player.index().rawValue()]
+                               + earnedCoins
                                + " Gold Coins.");
         }
 
         public boolean shouldGameContinue(PlayerIndex playerIndex) {
-            return purses[playerIndex.rawValue()] != 6;
+            return allPurses.get(playerIndex) != 6;
         }
 
         private void addPlayerPurse(PlayerIndex playerIndex) {
-            purses[playerIndex.rawValue()] = 0;
+            allPurses.put(playerIndex, 0);
         }
     }
-
-    // TODO index --> PlayerId
 
     private record Player(PlayerIndex index, PlayerName name) {
     }
