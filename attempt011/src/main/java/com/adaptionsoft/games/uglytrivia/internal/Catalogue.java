@@ -1,6 +1,5 @@
 package com.adaptionsoft.games.uglytrivia.internal;
 
-import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.ports.Category;
 
 import java.util.LinkedList;
