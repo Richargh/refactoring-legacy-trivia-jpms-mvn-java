@@ -22,9 +22,10 @@ public class Game {
     }
 
     public void add(String playerName) {
-        players.add(new Player(new PlayerIndex(players.size()), new PlayerName(playerName)));
-        board.addPlayerToBoard(players.size());
-        purses.addPlayerPurse(players.size());
+        var player = new Player(new PlayerIndex(players.size()), new PlayerName(playerName));
+        players.add(player);
+        board.addPlayerToBoard(player.index().rawValue());
+        purses.addPlayerPurse(player.index().rawValue());
         if(currentPlayer == null)
             currentPlayer = players.get(0);
 
