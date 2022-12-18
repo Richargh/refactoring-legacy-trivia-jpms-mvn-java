@@ -11,7 +11,7 @@ public class Board {
 
     private final Map<PlayerId, Integer> places = new HashMap<>();
 
-    public void addPlayerToBoard(PlayerId playerId) {
+    public void addPlayer(PlayerId playerId) {
         places.put(playerId, 0);
     }
 

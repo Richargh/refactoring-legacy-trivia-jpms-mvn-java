@@ -27,8 +27,9 @@ public class Game {
     public void add(String playerName) {
         var player = new Player(new PlayerId(players.size()), new PlayerName(playerName));
         players.add(player);
-        board.addPlayerToBoard(player.id());
-        purses.addPlayerPurse(player.id());
+        board.addPlayer(player.id());
+        purses.addPlayer(player.id());
+
         if(currentPlayer == null)
             currentPlayer = players.get(0);
 

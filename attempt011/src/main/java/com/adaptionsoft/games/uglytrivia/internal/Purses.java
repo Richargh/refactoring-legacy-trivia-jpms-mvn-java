@@ -21,7 +21,7 @@ public class Purses {
         return allPurses.get(playerId) != 6;
     }
 
-    public void addPlayerPurse(PlayerId playerId) {
+    public void addPlayer(PlayerId playerId) {
         allPurses.put(playerId, 0);
     }
 }
