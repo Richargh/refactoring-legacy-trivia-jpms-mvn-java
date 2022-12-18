@@ -24,8 +24,8 @@ public class Game {
     public void add(String playerName) {
         var player = new Player(new PlayerIndex(players.size()), new PlayerName(playerName));
         players.add(player);
-        board.addPlayerToBoard(player.index().rawValue());
-        purses.addPlayerPurse(player.index().rawValue());
+        board.addPlayerToBoard(player.index());
+        purses.addPlayerPurse(player.index());
         if(currentPlayer == null)
             currentPlayer = players.get(0);
 
@@ -120,8 +120,8 @@ public class Game {
             return purses[playerIndex.rawValue()] != 6;
         }
 
-        private void addPlayerPurse(int playerIndex) {
-            purses[playerIndex] = 0;
+        private void addPlayerPurse(PlayerIndex playerIndex) {
+            purses[playerIndex.rawValue()] = 0;
         }
     }
 
@@ -158,8 +158,8 @@ public class Game {
         public Board() {
         }
 
-        private void addPlayerToBoard(int playerIndex) {
-            places[playerIndex] = 0;
+        private void addPlayerToBoard(PlayerIndex playerIndex) {
+            places[playerIndex.rawValue()] = 0;
         }
 
         public Category movePlayer(int roll, Player player) {
