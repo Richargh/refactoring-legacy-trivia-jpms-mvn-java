@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.uglytrivia.internal;
 
+import com.adaptionsoft.games.uglytrivia.ports.GameState;
 import com.adaptionsoft.games.uglytrivia.ports.Player;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerId;
 
@@ -17,8 +18,11 @@ public class Purses {
         System.out.println(player.name() + " now has " + earnedCoins + " Gold Coins.");
     }
 
-    public boolean shouldGameContinue(PlayerId playerId) {
-        return allPurses.get(playerId) != 6;
+    public GameState shouldGameContinue(PlayerId playerId) {
+        if(allPurses.get(playerId) != 6)
+            return GameState.Continue;
+        else
+            return GameState.GameOver;
     }
 
     public void addPlayer(PlayerId playerId) {

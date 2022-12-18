@@ -2,11 +2,11 @@ package com.adaptionsoft.games.trivia.runner;
 import java.util.Random;
 
 import com.adaptionsoft.games.uglytrivia.Game;
-
+import com.adaptionsoft.games.uglytrivia.ports.GameState;
 
 public class GameRunner {
 
-    private static boolean notAWinner;
+    private static GameState state;
 
     public static void main(String[] args) {
         Game aGame = new Game();
@@ -18,18 +18,14 @@ public class GameRunner {
         Random rand = new Random();
 
         do {
-
             aGame.roll(rand.nextInt(5) + 1);
 
             if (rand.nextInt(9) == 7) {
-                notAWinner = aGame.playerAnsweredWrong();
+                state = aGame.playerAnsweredWrong();
             } else {
-                notAWinner = aGame.playerAnsweredCorrectly();
+                state = aGame.playerAnsweredCorrectly();
             }
-
-
-
-        } while (notAWinner);
+        } while (state != GameState.GameOver);
 
     }
 }

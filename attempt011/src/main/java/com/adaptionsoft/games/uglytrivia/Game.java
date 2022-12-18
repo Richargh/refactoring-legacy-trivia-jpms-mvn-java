@@ -4,6 +4,7 @@ import com.adaptionsoft.games.uglytrivia.internal.Board;
 import com.adaptionsoft.games.uglytrivia.internal.Catalogue;
 import com.adaptionsoft.games.uglytrivia.internal.PenaltyBox;
 import com.adaptionsoft.games.uglytrivia.internal.Purses;
+import com.adaptionsoft.games.uglytrivia.ports.GameState;
 import com.adaptionsoft.games.uglytrivia.ports.Player;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerId;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerName;
@@ -54,12 +55,12 @@ public class Game {
         }
     }
 
-    public boolean playerAnsweredCorrectly() {
+    public GameState playerAnsweredCorrectly() {
         var id = currentPlayer.id();
 
         if (penaltyBox.isNotAllowedToPlay(id)){
             selectNextPlayer();
-            return true;
+            return GameState.Continue;
         } else {
             purses.winCoin(currentPlayer);
             selectNextPlayer();
@@ -68,12 +69,12 @@ public class Game {
         }
     }
 
-    public boolean playerAnsweredWrong(){
+    public GameState playerAnsweredWrong(){
         System.out.println("Question was incorrectly answered");
         penaltyBox.sendToPenaltyBox(currentPlayer);
 
         selectNextPlayer();
-        return true;
+        return GameState.Continue;
     }
 
     private static boolean isEven(int roll) {
