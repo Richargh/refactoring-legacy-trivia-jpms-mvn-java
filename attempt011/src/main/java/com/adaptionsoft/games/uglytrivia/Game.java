@@ -3,6 +3,7 @@ package com.adaptionsoft.games.uglytrivia;
 import com.adaptionsoft.games.uglytrivia.internal.Board;
 import com.adaptionsoft.games.uglytrivia.internal.Catalogue;
 import com.adaptionsoft.games.uglytrivia.internal.PenaltyBox;
+import com.adaptionsoft.games.uglytrivia.internal.Purses;
 import com.adaptionsoft.games.uglytrivia.ports.Player;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerId;
 import com.adaptionsoft.games.uglytrivia.ports.PlayerName;
@@ -87,28 +88,5 @@ public class Game {
         var nextPlayerIndex = players.indexOf(currentPlayer) + 1;
         if (nextPlayerIndex == players.size()) nextPlayerIndex = 0;
         currentPlayer = players.get(nextPlayerIndex);
-    }
-
-    public static class Purses {
-
-        private final Map<PlayerId, Integer> allPurses = new HashMap<>();
-
-        public void winCoin(Player player) {
-            System.out.println("Answer was correct!!!!");
-            var earnedCoins = allPurses.get(player.id()) + 1;
-            allPurses.put(player.id(), earnedCoins);
-            System.out.println(player.name()
-                               + " now has "
-                               + earnedCoins
-                               + " Gold Coins.");
-        }
-
-        public boolean shouldGameContinue(PlayerId playerId) {
-            return allPurses.get(playerId) != 6;
-        }
-
-        private void addPlayerPurse(PlayerId playerId) {
-            allPurses.put(playerId, 0);
-        }
     }
 }
