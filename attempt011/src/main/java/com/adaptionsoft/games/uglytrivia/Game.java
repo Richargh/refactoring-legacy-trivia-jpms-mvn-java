@@ -22,7 +22,7 @@ public class Game {
     }
 
     public void add(String playerName) {
-        players.add(new Player(players.size(), new PlayerName(playerName)));
+        players.add(new Player(new PlayerIndex(players.size()), new PlayerName(playerName)));
         board.addPlayerToBoard(players.size());
         purses.addPlayerPurse(players.size());
         if(currentPlayer == null)
@@ -50,7 +50,7 @@ public class Game {
     }
 
     public boolean playerAnsweredCorrectly() {
-        int playerIndex = currentPlayer.index();
+        var playerIndex = currentPlayer.index();
 
         if (penaltyBox.isNotAllowedToPlay(playerIndex)){
             selectNextPlayer();
@@ -108,15 +108,15 @@ public class Game {
 
         public void winCoin(Player player) {
             System.out.println("Answer was correct!!!!");
-            purses[player.index()]++;
+            purses[player.index().rawValue()]++;
             System.out.println(player.name()
                                + " now has "
-                               + purses[player.index()]
+                               + purses[player.index().rawValue()]
                                + " Gold Coins.");
         }
 
-        public boolean shouldGameContinue(int playerIndex) {
-            return purses[playerIndex] != 6;
+        public boolean shouldGameContinue(PlayerIndex playerIndex) {
+            return purses[playerIndex.rawValue()] != 6;
         }
 
         private void addPlayerPurse(int playerIndex) {
@@ -124,7 +124,13 @@ public class Game {
         }
     }
 
-    private record Player(int index, PlayerName name) {
+    // TODO index --> PlayerId
+
+    private record Player(PlayerIndex index, PlayerName name) {
+    }
+
+    private record PlayerIndex(int rawValue) {
+
     }
 
     private record PlayerName(String rawValue){
@@ -156,15 +162,15 @@ public class Game {
         }
 
         public Category movePlayer(int roll, Player player) {
-            int index = player.index();
-            places[index] = places[index] + roll;
-            if (places[index] > 11) places[index] = places[index] - 12;
+            var index = player.index();
+            places[index.rawValue()] = places[index.rawValue()] + roll;
+            if (places[index.rawValue()] > 11) places[index.rawValue()] = places[index.rawValue()] - 12;
 
             System.out.println(player.name()
                                + "'s new location is "
-                               + places[index]);
+                               + places[index.rawValue()]);
 
-            return currentCategory(places[index]);
+            return currentCategory(places[index.rawValue()]);
         }
 
         /**
@@ -198,26 +204,26 @@ public class Game {
         public PenaltyBox() {
         }
 
-        public boolean isNotAllowedToPlay(int playerIndex) {
-            return inPenaltyBox[playerIndex] && !isGettingOutOfPenaltyBox[playerIndex];
+        public boolean isNotAllowedToPlay(PlayerIndex playerIndex) {
+            return inPenaltyBox[playerIndex.rawValue()] && !isGettingOutOfPenaltyBox[playerIndex.rawValue()];
         }
 
-        public boolean isInPenaltyBox(int playerIndex) {
-            return inPenaltyBox[playerIndex];
+        public boolean isInPenaltyBox(PlayerIndex playerIndex) {
+            return inPenaltyBox[playerIndex.rawValue()];
         }
 
         public void sendToPenaltyBox(Player player) {
             System.out.println(player.name() + " was sent to the penalty box");
-            inPenaltyBox[player.index()] = true;
+            inPenaltyBox[player.index().rawValue()] = true;
         }
 
         public void fetchFromPenaltyBox(Player player) {
-            isGettingOutOfPenaltyBox[player.index()] = true;
+            isGettingOutOfPenaltyBox[player.index().rawValue()] = true;
             System.out.println(player.name() + " is getting out of the penalty box");
         }
 
         public void keepInPenaltyBox(Player player) {
-            isGettingOutOfPenaltyBox[player.index()] = false;
+            isGettingOutOfPenaltyBox[player.index().rawValue()] = false;
             System.out.println(player.name() + " is not getting out of the penalty box");
         }
     }
