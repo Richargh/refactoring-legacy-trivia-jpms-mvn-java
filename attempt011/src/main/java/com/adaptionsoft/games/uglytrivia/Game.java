@@ -20,10 +20,10 @@ public class Game {
     }
 
     public void add(String playerName) {
-        var player = new Player(new PlayerIndex(players.size()), new PlayerName(playerName));
+        var player = new Player(new PlayerId(players.size()), new PlayerName(playerName));
         players.add(player);
-        board.addPlayerToBoard(player.index());
-        purses.addPlayerPurse(player.index());
+        board.addPlayerToBoard(player.id());
+        purses.addPlayerPurse(player.id());
         if(currentPlayer == null)
             currentPlayer = players.get(0);
 
@@ -35,7 +35,7 @@ public class Game {
         System.out.println(currentPlayer.name() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (penaltyBox.isInPenaltyBox(this.currentPlayer.index())) {
+        if (penaltyBox.isInPenaltyBox(this.currentPlayer.id())) {
             if (isEven(roll)) {
                 penaltyBox.keepInPenaltyBox(currentPlayer);
             } else {
@@ -49,16 +49,16 @@ public class Game {
     }
 
     public boolean playerAnsweredCorrectly() {
-        var playerIndex = currentPlayer.index();
+        var id = currentPlayer.id();
 
-        if (penaltyBox.isNotAllowedToPlay(playerIndex)){
+        if (penaltyBox.isNotAllowedToPlay(id)){
             selectNextPlayer();
             return true;
         } else {
             purses.winCoin(currentPlayer);
             selectNextPlayer();
 
-            return purses.shouldGameContinue(playerIndex);
+            return purses.shouldGameContinue(id);
         }
     }
 
@@ -100,34 +100,34 @@ public class Game {
         /**
          * Purses
          */
-        private final Map<PlayerIndex, Integer> allPurses = new HashMap<>();
+        private final Map<PlayerId, Integer> allPurses = new HashMap<>();
 
         public Purses() {
         }
 
         public void winCoin(Player player) {
             System.out.println("Answer was correct!!!!");
-            var earnedCoins = allPurses.get(player.index()) + 1;
-            allPurses.put(player.index(), earnedCoins);
+            var earnedCoins = allPurses.get(player.id()) + 1;
+            allPurses.put(player.id(), earnedCoins);
             System.out.println(player.name()
                                + " now has "
                                + earnedCoins
                                + " Gold Coins.");
         }
 
-        public boolean shouldGameContinue(PlayerIndex playerIndex) {
-            return allPurses.get(playerIndex) != 6;
+        public boolean shouldGameContinue(PlayerId playerId) {
+            return allPurses.get(playerId) != 6;
         }
 
-        private void addPlayerPurse(PlayerIndex playerIndex) {
-            allPurses.put(playerIndex, 0);
+        private void addPlayerPurse(PlayerId playerId) {
+            allPurses.put(playerId, 0);
         }
     }
 
-    private record Player(PlayerIndex index, PlayerName name) {
+    private record Player(PlayerId id, PlayerName name) {
     }
 
-    private record PlayerIndex(int rawValue) {
+    private record PlayerId(int rawValue) {
 
     }
 
@@ -150,25 +150,25 @@ public class Game {
         /**
          * Places
          */
-        private final Map<PlayerIndex, Integer> places = new HashMap<>();
+        private final Map<PlayerId, Integer> places = new HashMap<>();
 
         public Board() {
         }
 
-        private void addPlayerToBoard(PlayerIndex playerIndex) {
-            places.put(playerIndex, 0);
+        private void addPlayerToBoard(PlayerId playerId) {
+            places.put(playerId, 0);
         }
 
         public Category movePlayer(int roll, Player player) {
-            var index = player.index();
-            places.put(index, places.get(index) + roll);
-            if (places.get(index) > 11) places.put(index, places.get(index) - 12);
+            var id = player.id();
+            places.put(id, places.get(id) + roll);
+            if (places.get(id) > 11) places.put(id, places.get(id) - 12);
 
             System.out.println(player.name()
                                + "'s new location is "
-                               + places.get(index));
+                               + places.get(id));
 
-            return currentCategory(places.get(index));
+            return currentCategory(places.get(id));
         }
 
         /**
@@ -202,26 +202,26 @@ public class Game {
         public PenaltyBox() {
         }
 
-        public boolean isNotAllowedToPlay(PlayerIndex playerIndex) {
-            return inPenaltyBox[playerIndex.rawValue()] && !isGettingOutOfPenaltyBox[playerIndex.rawValue()];
+        public boolean isNotAllowedToPlay(PlayerId playerId) {
+            return inPenaltyBox[playerId.rawValue()] && !isGettingOutOfPenaltyBox[playerId.rawValue()];
         }
 
-        public boolean isInPenaltyBox(PlayerIndex playerIndex) {
-            return inPenaltyBox[playerIndex.rawValue()];
+        public boolean isInPenaltyBox(PlayerId playerId) {
+            return inPenaltyBox[playerId.rawValue()];
         }
 
         public void sendToPenaltyBox(Player player) {
             System.out.println(player.name() + " was sent to the penalty box");
-            inPenaltyBox[player.index().rawValue()] = true;
+            inPenaltyBox[player.id().rawValue()] = true;
         }
 
         public void fetchFromPenaltyBox(Player player) {
-            isGettingOutOfPenaltyBox[player.index().rawValue()] = true;
+            isGettingOutOfPenaltyBox[player.id().rawValue()] = true;
             System.out.println(player.name() + " is getting out of the penalty box");
         }
 
         public void keepInPenaltyBox(Player player) {
-            isGettingOutOfPenaltyBox[player.index().rawValue()] = false;
+            isGettingOutOfPenaltyBox[player.id().rawValue()] = false;
             System.out.println(player.name() + " is not getting out of the penalty box");
         }
     }
