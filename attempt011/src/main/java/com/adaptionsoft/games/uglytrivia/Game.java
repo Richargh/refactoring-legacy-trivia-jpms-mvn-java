@@ -43,9 +43,9 @@ public class Game {
 
         if (penaltyBox.isInPenaltyBox(this.currentPlayer.id())) {
             if (isEven(roll)) {
-                penaltyBox.keepInPenaltyBox(currentPlayer);
+                penaltyBox.stayInPenaltyBox(currentPlayer);
             } else {
-                penaltyBox.fetchFromPenaltyBox(currentPlayer);
+                penaltyBox.returnFromPenaltyBox(currentPlayer);
 
                 play(roll);
             }

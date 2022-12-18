@@ -23,13 +23,13 @@ public class PenaltyBox {
                 .rawValue()] = true;
     }
 
-    public void fetchFromPenaltyBox(Player player) {
+    public void returnFromPenaltyBox(Player player) {
         isGettingOutOfPenaltyBox[player.id()
                 .rawValue()] = true;
         System.out.println(player.name() + " is getting out of the penalty box");
     }
 
-    public void keepInPenaltyBox(Player player) {
+    public void stayInPenaltyBox(Player player) {
         isGettingOutOfPenaltyBox[player.id()
                 .rawValue()] = false;
         System.out.println(player.name() + " is not getting out of the penalty box");
