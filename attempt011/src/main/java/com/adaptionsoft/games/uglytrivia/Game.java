@@ -150,25 +150,25 @@ public class Game {
         /**
          * Places
          */
-        private final int[] places = new int[6];
+        private final Map<PlayerIndex, Integer> places = new HashMap<>();
 
         public Board() {
         }
 
         private void addPlayerToBoard(PlayerIndex playerIndex) {
-            places[playerIndex.rawValue()] = 0;
+            places.put(playerIndex, 0);
         }
 
         public Category movePlayer(int roll, Player player) {
             var index = player.index();
-            places[index.rawValue()] = places[index.rawValue()] + roll;
-            if (places[index.rawValue()] > 11) places[index.rawValue()] = places[index.rawValue()] - 12;
+            places.put(index, places.get(index) + roll);
+            if (places.get(index) > 11) places.put(index, places.get(index) - 12);
 
             System.out.println(player.name()
                                + "'s new location is "
-                               + places[index.rawValue()]);
+                               + places.get(index));
 
-            return currentCategory(places[index.rawValue()]);
+            return currentCategory(places.get(index));
         }
 
         /**
