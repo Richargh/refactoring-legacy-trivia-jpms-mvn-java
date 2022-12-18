@@ -119,13 +119,6 @@ public class Game {
         }
     }
 
-    private record Question(String rawValue){
-        @Override
-        public String toString() {
-            return rawValue;
-        }
-    }
-
     public static class Board {
 
         private final Map<PlayerId, Integer> places = new HashMap<>();
@@ -228,6 +221,13 @@ public class Game {
                                        .remove(0));
             if (category == Category.Rock) System.out.println(rockQuestions
                                        .remove(0));
+        }
+
+        private record Question(String rawValue){
+            @Override
+            public String toString() {
+                return rawValue;
+            }
         }
     }
 }
